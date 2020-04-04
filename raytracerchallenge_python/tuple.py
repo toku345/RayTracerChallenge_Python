@@ -23,6 +23,12 @@ class Tuple:
             and self.w == other.w
         )
 
+    def __add__(self, other):
+        return Tuple(self.x + other.x,
+                     self.y + other.y,
+                     self.z + other.z,
+                     self.w + other.w)
+
 
 def point(x, y, z):
     return Tuple(x, y, z, 1.0)

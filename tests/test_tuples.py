@@ -47,3 +47,11 @@ def test_func_vector_creates_tuples_with_w_equal_0():
     p = vector(4, -4, 3)
     # Then
     assert p == Tuple(4, -4, 3, 0)
+
+
+def test_adding_two_tuples():
+    # Given
+    a1 = Tuple(3, -2, 5, 1)
+    a2 = Tuple(-2, 3, 1, 0)
+    # Then
+    assert a1 + a2 == Tuple(1, 1, 6, 1)
