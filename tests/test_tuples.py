@@ -55,3 +55,27 @@ def test_adding_two_tuples():
     a2 = Tuple(-2, 3, 1, 0)
     # Then
     assert a1 + a2 == Tuple(1, 1, 6, 1)
+
+
+def test_subtracting_two_points():
+    # Given
+    p1 = point(3, 2, 1)
+    p2 = point(5, 6, 7)
+    # Then
+    assert p1 - p2 == vector(-2, -4, -6)
+
+
+def test_subtracting_a_vector_from_a_point():
+    # Given
+    p = point(3, 2, 1)
+    v = vector(5, 6, 7)
+    # Then
+    assert p - v == point(-2, -4, -6)
+
+
+def test_subtracting_two_vectors():
+    # Given
+    v1 = vector(3, 2, 1)
+    v2 = vector(5, 6, 7)
+    # Then
+    assert v1 - v2 == vector(-2, -4, -6)
