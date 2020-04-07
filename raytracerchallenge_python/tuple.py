@@ -35,6 +35,9 @@ class Tuple:
                      self.z - other.z,
                      self.w - other.w)
 
+    def __neg__(self):
+        return Tuple(-self.x, -self.y, -self.z, -self.w)
+
 
 def point(x, y, z):
     return Tuple(x, y, z, 1.0)

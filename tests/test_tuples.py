@@ -79,3 +79,18 @@ def test_subtracting_two_vectors():
     v2 = vector(5, 6, 7)
     # Then
     assert v1 - v2 == vector(-2, -4, -6)
+
+
+def test_subtracing_a_vector_from_the_zero_vector():
+    # Given
+    zero = vector(0, 0, 0)
+    v = vector(1, -2, 3)
+    # Then
+    assert zero - v == vector(-1, 2, -3)
+
+
+def test_negating_a_tuple():
+    # Given
+    a = Tuple(1, -2, 3, -4)
+    # Then
+    assert -a == Tuple(-1, 2, -3, 4)
