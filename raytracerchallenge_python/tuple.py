@@ -17,6 +17,13 @@ class Tuple:
     def magnitude(self):
         return sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2 + self.w ** 2)
 
+    def normalize(self):
+        magnitude = self.magnitude()
+        return Tuple(self.x / magnitude,
+                     self.y / magnitude,
+                     self.z / magnitude,
+                     self.w / magnitude)
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Tuple):

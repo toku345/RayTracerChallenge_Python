@@ -151,3 +151,26 @@ def test_computing_the_magnitude_of_vector_negative1_negative2_negative3():
     v = vector(-1, -2, -3)
     # Then
     assert v.magnitude() == sqrt(14)
+
+
+def test_normalizing_vector_4_0_0_gives_1_0_0():
+    # Given
+    v = vector(4, 0, 0)
+    # Then
+    assert v.normalize() == vector(1, 0, 0)
+
+
+def test_normalizing_vector_1_2_3():
+    # Given
+    v = vector(1, 2, 3)
+    # Then
+    assert v.normalize() == vector(1/sqrt(14), 2 / sqrt(14), 3 / sqrt(14))
+
+
+def test_magnitude_of_a_normalized_vector():
+    # Given
+    v = vector(1, 2, 3)
+    # When
+    norm = v.normalize()
+    # Then
+    assert norm.magnitude() == 1
