@@ -1,4 +1,5 @@
 from raytracerchallenge_python.tuple import Tuple, point, vector
+from math import sqrt
 
 
 def test_a_tuple_with_w_equal_1_is_a_point():
@@ -115,3 +116,38 @@ def test_dividing_a_tuple_by_a_scalar():
     a = Tuple(1, -2, 3, -4)
     # Then
     assert a / 2 == Tuple(0.5, -1, 1.5, -2)
+
+
+def test_computing_the_magnitude_of_vector_1_0_0():
+    # Given
+    v = vector(1, 0, 0)
+    # Then
+    assert v.magnitude() == 1
+
+
+def test_computing_the_magnitude_of_vector_0_1_0():
+    # Given
+    v = vector(0, 1, 0)
+    # Then
+    assert v.magnitude() == 1
+
+
+def test_computing_the_magnitude_of_vector_0_0_1():
+    # Given
+    v = vector(0, 0, 1)
+    # Then
+    assert v.magnitude() == 1
+
+
+def test_computing_the_magnitude_of_vector_1_2_3():
+    # Given
+    v = vector(1, 2, 3)
+    # Then
+    assert v.magnitude() == sqrt(14)
+
+
+def test_computing_the_magnitude_of_vector_negative1_negative2_negative3():
+    # Given
+    v = vector(-1, -2, -3)
+    # Then
+    assert v.magnitude() == sqrt(14)

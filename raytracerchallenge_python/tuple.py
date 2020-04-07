@@ -1,3 +1,6 @@
+from math import sqrt
+
+
 class Tuple:
     def __init__(self, x, y, z, w):
         self.x = x
@@ -10,6 +13,9 @@ class Tuple:
 
     def is_vector(self):
         return not self.is_point()
+
+    def magnitude(self):
+        return sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2 + self.w ** 2)
 
     def __eq__(self, other):
         """Overrides the default implementation"""
