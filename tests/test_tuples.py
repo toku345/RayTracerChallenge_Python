@@ -94,3 +94,24 @@ def test_negating_a_tuple():
     a = Tuple(1, -2, 3, -4)
     # Then
     assert -a == Tuple(-1, 2, -3, 4)
+
+
+def test_multiplying_a_tuple_by_a_scalar():
+    # Given
+    a = Tuple(1, -2, 3, -4)
+    # Then
+    assert a * 3.5 == Tuple(3.5, -7.0, 10.5, -14)
+
+
+def test_multiplying_a_tuple_by_a_fraction():
+    # Given
+    a = Tuple(1, -2, 3, -4)
+    # Then
+    assert a * 0.5 == Tuple(0.5, -1, 1.5, -2)
+
+
+def test_dividing_a_tuple_by_a_scalar():
+    # Given
+    a = Tuple(1, -2, 3, -4)
+    # Then
+    assert a / 2 == Tuple(0.5, -1, 1.5, -2)
