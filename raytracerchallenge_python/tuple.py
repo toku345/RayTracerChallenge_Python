@@ -24,17 +24,6 @@ class Tuple:
                      self.z / magnitude,
                      self.w / magnitude)
 
-    def dot(self, other):
-        return sum([self.x * other.x,
-                    self.y * other.y,
-                    self.z * other.z,
-                    self.w * other.w])
-
-    def cross(self, other):
-        return vector(self.y * other.z - self.z * other.y,
-                      self.z * other.x - self.x * other.z,
-                      self.x * other.y - self.y * other.x)
-
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Tuple):
@@ -75,9 +64,28 @@ class Tuple:
                      self.w / scalar)
 
 
-def point(x, y, z):
-    return Tuple(x, y, z, 1.0)
+class Point(Tuple):
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.w = 1.0
 
 
-def vector(x, y, z):
-    return Tuple(x, y, z, 0.0)
+class Vector(Tuple):
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.w = 0.0
+
+    def dot(self, other):
+        return sum([self.x * other.x,
+                    self.y * other.y,
+                    self.z * other.z,
+                    self.w * other.w])
+
+    def cross(self, other):
+        return Vector(self.y * other.z - self.z * other.y,
+                      self.z * other.x - self.x * other.z,
+                      self.x * other.y - self.y * other.x)

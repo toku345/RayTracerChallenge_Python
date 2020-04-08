@@ -1,4 +1,4 @@
-from raytracerchallenge_python.tuple import Tuple, point, vector
+from raytracerchallenge_python.tuple import Tuple, Point, Vector
 from math import sqrt
 
 
@@ -38,14 +38,14 @@ def test_equivalence_tuple_objects():
 
 def test_func_point_creates_tuples_with_w_equal_1():
     # Given
-    p = point(4, -4, 3)
+    p = Point(4, -4, 3)
     # Then
     assert p == Tuple(4, -4, 3, 1)
 
 
 def test_func_vector_creates_tuples_with_w_equal_0():
     # Given
-    p = vector(4, -4, 3)
+    p = Vector(4, -4, 3)
     # Then
     assert p == Tuple(4, -4, 3, 0)
 
@@ -60,34 +60,34 @@ def test_adding_two_tuples():
 
 def test_subtracting_two_points():
     # Given
-    p1 = point(3, 2, 1)
-    p2 = point(5, 6, 7)
+    p1 = Point(3, 2, 1)
+    p2 = Point(5, 6, 7)
     # Then
-    assert p1 - p2 == vector(-2, -4, -6)
+    assert p1 - p2 == Vector(-2, -4, -6)
 
 
 def test_subtracting_a_vector_from_a_point():
     # Given
-    p = point(3, 2, 1)
-    v = vector(5, 6, 7)
+    p = Point(3, 2, 1)
+    v = Vector(5, 6, 7)
     # Then
-    assert p - v == point(-2, -4, -6)
+    assert p - v == Point(-2, -4, -6)
 
 
 def test_subtracting_two_vectors():
     # Given
-    v1 = vector(3, 2, 1)
-    v2 = vector(5, 6, 7)
+    v1 = Vector(3, 2, 1)
+    v2 = Vector(5, 6, 7)
     # Then
-    assert v1 - v2 == vector(-2, -4, -6)
+    assert v1 - v2 == Vector(-2, -4, -6)
 
 
 def test_subtracing_a_vector_from_the_zero_vector():
     # Given
-    zero = vector(0, 0, 0)
-    v = vector(1, -2, 3)
+    zero = Vector(0, 0, 0)
+    v = Vector(1, -2, 3)
     # Then
-    assert zero - v == vector(-1, 2, -3)
+    assert zero - v == Vector(-1, 2, -3)
 
 
 def test_negating_a_tuple():
@@ -120,56 +120,56 @@ def test_dividing_a_tuple_by_a_scalar():
 
 def test_computing_the_magnitude_of_vector_1_0_0():
     # Given
-    v = vector(1, 0, 0)
+    v = Vector(1, 0, 0)
     # Then
     assert v.magnitude() == 1
 
 
 def test_computing_the_magnitude_of_vector_0_1_0():
     # Given
-    v = vector(0, 1, 0)
+    v = Vector(0, 1, 0)
     # Then
     assert v.magnitude() == 1
 
 
 def test_computing_the_magnitude_of_vector_0_0_1():
     # Given
-    v = vector(0, 0, 1)
+    v = Vector(0, 0, 1)
     # Then
     assert v.magnitude() == 1
 
 
 def test_computing_the_magnitude_of_vector_1_2_3():
     # Given
-    v = vector(1, 2, 3)
+    v = Vector(1, 2, 3)
     # Then
     assert v.magnitude() == sqrt(14)
 
 
 def test_computing_the_magnitude_of_vector_negative1_negative2_negative3():
     # Given
-    v = vector(-1, -2, -3)
+    v = Vector(-1, -2, -3)
     # Then
     assert v.magnitude() == sqrt(14)
 
 
 def test_normalizing_vector_4_0_0_gives_1_0_0():
     # Given
-    v = vector(4, 0, 0)
+    v = Vector(4, 0, 0)
     # Then
-    assert v.normalize() == vector(1, 0, 0)
+    assert v.normalize() == Vector(1, 0, 0)
 
 
 def test_normalizing_vector_1_2_3():
     # Given
-    v = vector(1, 2, 3)
+    v = Vector(1, 2, 3)
     # Then
-    assert v.normalize() == vector(1/sqrt(14), 2 / sqrt(14), 3 / sqrt(14))
+    assert v.normalize() == Vector(1/sqrt(14), 2 / sqrt(14), 3 / sqrt(14))
 
 
 def test_magnitude_of_a_normalized_vector():
     # Given
-    v = vector(1, 2, 3)
+    v = Vector(1, 2, 3)
     # When
     norm = v.normalize()
     # Then
@@ -178,16 +178,16 @@ def test_magnitude_of_a_normalized_vector():
 
 def test_the_dot_product_of_two_tuples():
     # Given
-    a = vector(1, 2, 3)
-    b = vector(2, 3, 4)
+    a = Vector(1, 2, 3)
+    b = Vector(2, 3, 4)
     # Then
     assert a.dot(b) == 20
 
 
 def test_the_cross_product_of_two_vectors():
     # Given
-    a = vector(1, 2, 3)
-    b = vector(2, 3, 4)
+    a = Vector(1, 2, 3)
+    b = Vector(2, 3, 4)
     # Then
-    assert a.cross(b) == vector(-1, 2, -1)
-    assert b.cross(a) == vector(1, -2, 1)
+    assert a.cross(b) == Vector(-1, 2, -1)
+    assert b.cross(a) == Vector(1, -2, 1)
