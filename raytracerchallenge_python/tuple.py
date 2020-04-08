@@ -24,6 +24,12 @@ class Tuple:
                      self.z / magnitude,
                      self.w / magnitude)
 
+    def dot(self, other):
+        return sum([self.x * other.x,
+                    self.y * other.y,
+                    self.z * other.z,
+                    self.w * other.w])
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Tuple):
