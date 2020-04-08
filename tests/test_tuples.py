@@ -182,3 +182,12 @@ def test_the_dot_product_of_two_tuples():
     b = vector(2, 3, 4)
     # Then
     assert a.dot(b) == 20
+
+
+def test_the_cross_product_of_two_vectors():
+    # Given
+    a = vector(1, 2, 3)
+    b = vector(2, 3, 4)
+    # Then
+    assert a.cross(b) == vector(-1, 2, -1)
+    assert b.cross(a) == vector(1, -2, 1)
