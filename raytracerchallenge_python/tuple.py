@@ -99,3 +99,15 @@ class Color(Tuple):
         self.green = green
         self.blue = blue
         super().__init__(red, green, blue, 0)
+
+    def __mul__(self, scalar_or_color):
+        if type(scalar_or_color) == Color:
+            return self._hadamard_product(scalar_or_color)
+        else:
+            return super().__mul__(scalar_or_color)
+
+    def _hadamard_product(self, other):
+        r = self.red * other.red
+        g = self.green * other.green
+        b = self.blue * other.blue
+        return Color(r, g, b)
