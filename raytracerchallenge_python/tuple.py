@@ -66,18 +66,12 @@ class Tuple:
 
 class Point(Tuple):
     def __init__(self, x, y, z):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = 1.0
+        super().__init__(x, y, z, 1.0)
 
 
 class Vector(Tuple):
     def __init__(self, x, y, z):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = 0.0
+        super().__init__(x, y, z, 0.0)
 
     def dot(self, other):
         return sum([self.x * other.x,
@@ -93,7 +87,7 @@ class Vector(Tuple):
 
 class Color(Tuple):
     def __init__(self, red, green, blue):
-        self.x = self.red = red
-        self.y = self.green = green
-        self.z = self.blue = blue
-        self.w = None
+        self.red = red
+        self.green = green
+        self.blue = blue
+        super().__init__(red, green, blue, None)
