@@ -90,4 +90,4 @@ class Color(Tuple):
         self.red = red
         self.green = green
         self.blue = blue
-        super().__init__(red, green, blue, None)
+        super().__init__(red, green, blue, 0)
