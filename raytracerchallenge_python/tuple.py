@@ -89,3 +89,11 @@ class Vector(Tuple):
         return Vector(self.y * other.z - self.z * other.y,
                       self.z * other.x - self.x * other.z,
                       self.x * other.y - self.y * other.x)
+
+
+class Color(Tuple):
+    def __init__(self, red, green, blue):
+        self.x = self.red = red
+        self.y = self.green = green
+        self.z = self.blue = blue
+        self.w = None
