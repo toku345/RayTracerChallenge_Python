@@ -37,3 +37,14 @@ def test_creating_a_canvas():
             [b, b, b, b, b, b, b, b, b, b],
             [b, b, b, b, b, b, b, b, b, b],
         ]
+
+
+def test_writing_pixels_to_a_canvas():
+    # Given
+    c = Canvas(10, 20)
+    red = Color(1, 0, 0)
+    # When
+    c.write_pixel(2, 3, red)
+    # Then
+    assert c.pixel_at(2, 3) == red
+    assert c.pixels[3][2] == red
