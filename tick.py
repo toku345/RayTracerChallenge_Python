@@ -21,7 +21,7 @@ def tick(env, proj):
     return Projectile(position, velocity)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # projectile starts one unit above the origin.
     # velocity is normalized to 1 unit/tick.
     p = Projectile(Point(0, 1, 0), Vector(1, 1, 0).normalize())
@@ -31,6 +31,6 @@ if __name__ == '__main__':
 
     while p.position.y > 0:
         p = tick(e, p)
-        print('[Projectile position] x: ', p.position.x,
-              ' y: ', p.position.y,
-              ' z: ', p.position.z)
+        print("[Projectile position] x: ", p.position.x,
+              " y: ", p.position.y,
+              " z: ", p.position.z)
