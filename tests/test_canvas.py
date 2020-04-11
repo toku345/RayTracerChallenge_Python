@@ -48,3 +48,32 @@ def test_writing_pixels_to_a_canvas():
     # Then
     assert c.pixel_at(2, 3) == red
     assert c.pixels[3][2] == red
+
+
+def test_constructing_the_ppm_header():
+    # Given
+    c = Canvas(5, 3)
+    # When
+    ppm = c.to_ppm()
+    # Then
+    assert ppm.split("\n")[0:3] == ["P3",
+                                    "5 3",
+                                    "255"]
+
+
+def test_constructing_the_ppm_pixel_data():
+    # Given
+    c = Canvas(5, 3)
+    c1 = Color(1.5, 0, 0)
+    c2 = Color(0, 0.5, 0)
+    c3 = Color(-0.5, 0, 1)
+    # When
+    c.write_pixel(0, 0, c1)
+    c.write_pixel(2, 1, c2)
+    c.write_pixel(4, 2, c3)
+    ppm = c.to_ppm()
+    # Then
+    assert ppm.split("\n")[3:6] == \
+        ["255 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+         "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0",
+         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"]
