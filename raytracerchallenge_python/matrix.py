@@ -9,3 +9,10 @@ class Matrix:
 
     def at(self, row, col):
         return self._matrix[row][col]
+
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if not isinstance(other, Matrix):
+            return False
+
+        return self._matrix == other._matrix
