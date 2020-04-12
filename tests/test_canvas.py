@@ -94,3 +94,12 @@ def test_splitting_long_lines_in_ppm_files():
          "153 255 204 153 255 204 153 255 204 153 255 204 153",
          "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204",
          "153 255 204 153 255 204 153 255 204 153 255 204 153"]
+
+
+def test_ppm_files_are_terminated_by_a_newline_character():
+    # Given
+    c = Canvas(5, 3)
+    # When
+    ppm = c.to_ppm()
+    # Then
+    assert ppm[-1] == "\n"

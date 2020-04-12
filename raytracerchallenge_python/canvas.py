@@ -36,4 +36,4 @@ class Canvas:
             else:
                 lines.append(line)
 
-        return "\n".join(lines)
+        return "\n".join(lines) + "\n"
