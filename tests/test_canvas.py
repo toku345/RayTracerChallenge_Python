@@ -77,3 +77,20 @@ def test_constructing_the_ppm_pixel_data():
         ["255 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
          "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0",
          "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"]
+
+
+def test_splitting_long_lines_in_ppm_files():
+    # Given
+    c = Canvas(10, 2)
+    # When
+    color = Color(1, 0.8, 0.6)
+    for y in range(2):
+        for x in range(10):
+            c.write_pixel(x, y, color)
+    ppm = c.to_ppm()
+    # Then
+    assert ppm.split("\n")[3:7] == \
+        ["255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204",
+         "153 255 204 153 255 204 153 255 204 153 255 204 153",
+         "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204",
+         "153 255 204 153 255 204 153 255 204 153 255 204 153"]

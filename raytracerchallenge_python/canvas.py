@@ -21,9 +21,19 @@ class Canvas:
                  f"{self.width} {self.height}",
                  str(self.MAXIMUM_COLOR_VALUE)]
 
+        def split_line(line):
+            split_index = 70
+            while line[split_index] != " ":
+                split_index -= 1
+            return [line[:split_index], line[split_index+1:]]
+
         for xs in self.pixels:
             ppm_pixels = \
                 [color.ppm_pixel_str(self.MAXIMUM_COLOR_VALUE) for color in xs]
-            lines.append(" ".join(ppm_pixels))
+            line = " ".join(ppm_pixels)
+            if len(line) > 70:
+                lines += split_line(line)
+            else:
+                lines.append(line)
 
         return "\n".join(lines)
