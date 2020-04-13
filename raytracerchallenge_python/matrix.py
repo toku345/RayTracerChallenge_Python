@@ -45,3 +45,10 @@ class Matrix:
                            self.at(row, 3) * other_list[3]])
             elements.append(element)
         return Tuple(*elements)
+
+
+def identity_matrix():
+    return Matrix(1, 0, 0, 0,
+                  0, 1, 0, 0,
+                  0, 0, 1, 0,
+                  0, 0, 0, 1)

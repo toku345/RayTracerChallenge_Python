@@ -1,4 +1,4 @@
-from raytracerchallenge_python.matrix import Matrix
+from raytracerchallenge_python.matrix import Matrix, identity_matrix
 from raytracerchallenge_python.tuple import Tuple
 
 
@@ -106,3 +106,28 @@ def test_a_matrix_multiplied_by_a_tuple():
 
     # Then
     assert A * b == Tuple(18, 24, 33, 1)
+
+
+def test_multiplying_a_matrix_by_the_identity_matrix():
+    # Given
+    A = Matrix(0, 1, 2, 4,
+               1, 2, 4, 8,
+               2, 4, 8, 16,
+               4, 8, 16, 32)
+    # Then
+    assert A * identity_matrix() == A
+
+
+def test_multiplying_the_identity_matrix_by_a_matrix():
+    A = Matrix(0, 1, 2, 4,
+               1, 2, 4, 8,
+               2, 4, 8, 16,
+               4, 8, 16, 32)
+    assert identity_matrix() * A == A
+
+
+def test_multiplying_the_identity_matrix_by_a_tuple():
+    # Given
+    a = Tuple(1, 2, 3, 4)
+    # Then
+    assert identity_matrix() * a == a
