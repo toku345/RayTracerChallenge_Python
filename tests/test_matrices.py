@@ -76,3 +76,20 @@ def test_equivalence_matrix_with_no_matrix_object():
                  [5, 6, 7, 8],
                  [9, 8, 7, 6],
                  [5, 4, 3, 2]]
+
+
+def test_multiplying_two_matrices():
+    # Given
+    A = Matrix(1, 2, 3, 4,
+               5, 6, 7, 8,
+               9, 8, 7, 6,
+               5, 4, 3, 2)
+    B = Matrix(-2, 1, 2, 3,
+               3, 2, 1, -1,
+               4, 3, 6, 5,
+               1, 2, 7, 8)
+    # Then
+    assert A * B == Matrix(20, 22, 50, 48,
+                           44, 54, 114, 108,
+                           40, 58, 110, 102,
+                           16, 26, 46, 42)
