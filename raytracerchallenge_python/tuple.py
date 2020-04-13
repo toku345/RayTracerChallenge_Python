@@ -27,6 +27,9 @@ class Tuple:
                      self.z / magnitude,
                      self.w / magnitude)
 
+    def to_list(self):
+        return [self.x, self.y, self.z, self.w]
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Tuple):
