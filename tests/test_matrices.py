@@ -131,3 +131,23 @@ def test_multiplying_the_identity_matrix_by_a_tuple():
     a = Tuple(1, 2, 3, 4)
     # Then
     assert identity_matrix() * a == a
+
+
+def test_transposing_a_matrix():
+    # Given
+    A = Matrix(0, 9, 3, 0,
+               9, 8, 0, 8,
+               1, 8, 5, 3,
+               0, 0, 5, 8)
+    # Then
+    assert A.transpose() == Matrix(0, 9, 1, 0,
+                                   9, 8, 8, 0,
+                                   3, 0, 5, 5,
+                                   0, 8, 3, 8)
+
+
+def test_transposing_the_identity_matrix():
+    # Given
+    A = identity_matrix().transpose()
+    # Then
+    assert A == identity_matrix()

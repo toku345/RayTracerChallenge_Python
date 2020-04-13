@@ -11,6 +11,13 @@ class Matrix:
     def at(self, row, col):
         return self._matrix[row][col]
 
+    def transpose(self):
+        elements = []
+        for row in range(4):
+            for col in range(4):
+                elements.append(self.at(col, row))
+        return Matrix(*elements)
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):
