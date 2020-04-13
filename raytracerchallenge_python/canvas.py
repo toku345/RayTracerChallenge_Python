@@ -3,6 +3,7 @@ from raytracerchallenge_python.tuple import Color
 
 class Canvas:
     MAXIMUM_COLOR_VALUE = 255
+    MAXIMUM_LINE_LENGTH = 70
 
     def __init__(self, width, height):
         self.width = width
@@ -22,18 +23,19 @@ class Canvas:
                  str(self.MAXIMUM_COLOR_VALUE)]
 
         def split_line(line):
-            split_index = 70
+            if len(line) < self.MAXIMUM_LINE_LENGTH:
+                return [line]
+
+            split_index = self.MAXIMUM_LINE_LENGTH
+
             while line[split_index] != " ":
                 split_index -= 1
-            return [line[:split_index], line[split_index+1:]]
+            return [line[:split_index]] + split_line(line[split_index+1:])
 
         for xs in self.pixels:
             ppm_pixels = \
                 [color.ppm_pixel_str(self.MAXIMUM_COLOR_VALUE) for color in xs]
             line = " ".join(ppm_pixels)
-            if len(line) > 70:
-                lines += split_line(line)
-            else:
-                lines.append(line)
+            lines += split_line(line)
 
         return "\n".join(lines) + "\n"
