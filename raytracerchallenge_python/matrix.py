@@ -33,6 +33,9 @@ class Matrix:
                 elements.append(self.at(row_index, col_index))
         return Matrix(*elements)
 
+    def minor(self, row, col):
+        return self.submatrix(row, col).determinant()
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):

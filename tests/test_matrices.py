@@ -181,3 +181,14 @@ def test_a_submatrix_of_a_4x4_matrix_is_a_3x3_matrix():
     assert A.submatrix(2, 1) == Matrix(-6, 1, 6,
                                        -8, 8, 6,
                                        -7, -1, 1)
+
+
+def test_calculating_a_minor_of_a_3x3_matrix():
+    # Given
+    A = Matrix(3, 5, 0,
+               2, -1, -7,
+               6, -1, 5)
+    B = A.submatrix(1, 0)
+    # Then
+    assert B.determinant() == 25
+    assert A.minor(1, 0) == 25
