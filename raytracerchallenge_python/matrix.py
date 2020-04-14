@@ -36,6 +36,12 @@ class Matrix:
     def minor(self, row, col):
         return self.submatrix(row, col).determinant()
 
+    def cofactor(self, row, col):
+        if (row + col) % 2 == 0:
+            return self.minor(row, col)
+        else:
+            return -self.minor(row, col)
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):

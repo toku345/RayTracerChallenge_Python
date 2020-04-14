@@ -192,3 +192,15 @@ def test_calculating_a_minor_of_a_3x3_matrix():
     # Then
     assert B.determinant() == 25
     assert A.minor(1, 0) == 25
+
+
+def test_calculating_a_cofactor_of_a_3x3_matrix():
+    # Given
+    A = Matrix(3, 5, 0,
+               2, -1, -7,
+               6, -1, 5)
+    # Then
+    assert A.minor(0, 0) == -12
+    assert A.cofactor(0, 0) == -12
+    assert A.minor(1, 0) == 25
+    assert A.cofactor(1, 0) == -25
