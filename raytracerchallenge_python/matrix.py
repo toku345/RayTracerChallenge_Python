@@ -21,6 +21,18 @@ class Matrix:
     def determinant(self):
         return self.at(0, 0) * self.at(1, 1) - self.at(0, 1) * self.at(1, 0)
 
+    def submatrix(self, row, col):
+        size = len(self._matrix)
+        elements = []
+        for row_index in range(size):
+            if row_index == row:
+                continue
+            for col_index in range(size):
+                if col_index == col:
+                    continue
+                elements.append(self.at(row_index, col_index))
+        return Matrix(*elements)
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):
