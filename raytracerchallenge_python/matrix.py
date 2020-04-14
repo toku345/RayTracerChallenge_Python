@@ -47,6 +47,9 @@ class Matrix:
         else:
             return -self.minor(row, col)
 
+    def is_invertible(self):
+        return self.determinant() != 0
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):
