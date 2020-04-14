@@ -18,6 +18,9 @@ class Matrix:
                 elements.append(self.at(col, row))
         return Matrix(*elements)
 
+    def determinant(self):
+        return self.at(0, 0) * self.at(1, 1) - self.at(0, 1) * self.at(1, 0)
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):
