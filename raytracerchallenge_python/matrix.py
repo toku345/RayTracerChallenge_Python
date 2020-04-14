@@ -19,7 +19,13 @@ class Matrix:
         return Matrix(*elements)
 
     def determinant(self):
-        return self.at(0, 0) * self.at(1, 1) - self.at(0, 1) * self.at(1, 0)
+        size = len(self._matrix)
+        if size == 2:
+            return self.at(0, 0) * self.at(1, 1) - \
+                self.at(0, 1) * self.at(1, 0)
+        else:
+            return sum([self.at(0, col) * self.cofactor(0, col)
+                        for col in range(size)])
 
     def submatrix(self, row, col):
         size = len(self._matrix)
