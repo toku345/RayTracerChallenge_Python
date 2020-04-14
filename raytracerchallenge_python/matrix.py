@@ -4,9 +4,10 @@ from raytracerchallenge_python.tuple import Tuple
 
 class Matrix:
     def __init__(self, *elements):
-        size = floor(sqrt(len(elements)))
+        self.size = floor(sqrt(len(elements)))
         self._matrix = \
-            [list(elements[i:i+size]) for i in range(0, len(elements), size)]
+            [list(elements[i:i+self.size])
+             for i in range(0, len(elements), self.size)]
 
     def at(self, row, col):
         return self._matrix[row][col]
@@ -19,21 +20,19 @@ class Matrix:
         return Matrix(*elements)
 
     def determinant(self):
-        size = len(self._matrix)
-        if size == 2:
+        if self.size == 2:
             return self.at(0, 0) * self.at(1, 1) - \
                 self.at(0, 1) * self.at(1, 0)
         else:
             return sum([self.at(0, col) * self.cofactor(0, col)
-                        for col in range(size)])
+                        for col in range(self.size)])
 
     def submatrix(self, row, col):
-        size = len(self._matrix)
         elements = []
-        for row_index in range(size):
+        for row_index in range(self.size):
             if row_index == row:
                 continue
-            for col_index in range(size):
+            for col_index in range(self.size):
                 if col_index == col:
                     continue
                 elements.append(self.at(row_index, col_index))
