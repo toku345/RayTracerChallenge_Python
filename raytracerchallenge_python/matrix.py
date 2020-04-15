@@ -2,6 +2,12 @@ from math import sqrt, floor
 from raytracerchallenge_python.tuple import Tuple
 
 
+class NonInvertibleMatrixError(Exception):
+    def __init__(self):
+        self.expression = 'Non Invertible Matrix!'
+        self.text = 'Non Invertible Matrix!'
+
+
 class Matrix:
     def __init__(self, *elements):
         self.size = floor(sqrt(len(elements)))
@@ -50,12 +56,27 @@ class Matrix:
     def is_invertible(self):
         return self.determinant() != 0
 
+    def inverse(self):
+        if not self.is_invertible():
+            raise NonInvertibleMatrixError
+
+        det = self.determinant()
+        elements = []
+        for row in range(self.size):
+            for col in range(self.size):
+                c = self.cofactor(row, col)
+                elements.append(round(c / det, 5))
+
+        return Matrix(*elements).transpose()
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):
             return False
 
-        return self._matrix == other._matrix
+        return all([self.at(r, c) == other.at(r, c)
+                    for r in range(self.size)
+                    for c in range(self.size)])
 
     def __mul__(self, other):
         if isinstance(other, Matrix):

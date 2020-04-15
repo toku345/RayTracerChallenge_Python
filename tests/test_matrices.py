@@ -1,5 +1,17 @@
-from raytracerchallenge_python.matrix import Matrix, identity_matrix
+from raytracerchallenge_python.matrix import (
+    Matrix, identity_matrix, NonInvertibleMatrixError)
 from raytracerchallenge_python.tuple import Tuple
+
+import pytest
+
+EPSILON = 0.00001
+
+
+def equal(a, b):
+    if abs(a - b) < EPSILON:
+        return True
+    else:
+        return False
 
 
 def test_constructing_and_inspecting_a_4x4_matrix():
@@ -252,3 +264,32 @@ def testing_a_noninvertible_matrix_for_invertibility():
     # Then
     assert A.determinant() == 0
     assert not A.is_invertible()
+
+
+def test_calculating_the_inverse_of_a_matrix():
+    # Given
+    A = Matrix(-5, 2, 6, -8,
+               1, -5, 1, 8,
+               7, 7, -6, -7,
+               1, -3, 7, 4)
+    B = A.inverse()
+    # Then
+    assert A.determinant() == 532
+    assert A.cofactor(2, 3) == -160
+    assert equal(B.at(3, 2), -160/532)
+    assert A.cofactor(3, 2) == 105
+    assert equal(B.at(2, 3), 105/532)
+    assert B == Matrix(0.21805, 0.45113, 0.24060, -0.04511,
+                       -0.80827, -1.45677, -0.44361, 0.52068,
+                       -0.07895, -0.22368, -0.05263, 0.19737,
+                       -0.52256, -0.81391, -0.30075, 0.30639)
+
+
+def test_raise_exception_when_inverse_of_a_noninvertible_matrix():
+    A = Matrix(-4, 2, -2, -3,
+               9, 6, 2, 6,
+               0, -5, 1, -5,
+               0, 0, 0, 0)
+    assert not A.is_invertible()
+    with pytest.raises(NonInvertibleMatrixError):
+        A.inverse()
