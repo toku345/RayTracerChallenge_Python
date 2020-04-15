@@ -1,17 +1,9 @@
 from raytracerchallenge_python.matrix import (
     Matrix, identity_matrix, NonInvertibleMatrixError)
 from raytracerchallenge_python.tuple import Tuple
+from raytracerchallenge_python.helpers import equal
 
 import pytest
-
-EPSILON = 0.00001
-
-
-def equal(a, b):
-    if abs(a - b) < EPSILON:
-        return True
-    else:
-        return False
 
 
 def test_constructing_and_inspecting_a_4x4_matrix():

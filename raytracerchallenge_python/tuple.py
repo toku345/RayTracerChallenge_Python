@@ -1,10 +1,10 @@
 from math import sqrt
 from decimal import Decimal
 
+from raytracerchallenge_python.helpers import equal
+
 
 class Tuple:
-    EPSILON = 0.00001
-
     def __init__(self, x, y, z, w):
         self.x = x
         self.y = y
@@ -35,18 +35,10 @@ class Tuple:
         if not isinstance(other, Tuple):
             return False
 
-        def equal(a, b):
-            if abs(a - b) < self.EPSILON:
-                return True
-            else:
-                return False
-
-        return (
-            equal(self.x, other.x)
-            and equal(self.y, other.y)
-            and equal(self.z, other.z)
-            and equal(self.w, other.w)
-        )
+        return all([equal(self.x, other.x),
+                    equal(self.y, other.y),
+                    equal(self.z, other.z),
+                    equal(self.w, other.w)])
 
     def __add__(self, other):
         return Tuple(self.x + other.x,
