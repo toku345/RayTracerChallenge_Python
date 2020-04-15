@@ -71,6 +71,13 @@ class Matrix:
 
         return Matrix(*elements).transpose()
 
+    def __repr__(self):
+        lines = []
+        for row in range(self.size):
+            lines.append(" | ".join([str(self.at(row, col))
+                                     for col in range(self.size)]))
+        return "\n".join(lines)
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Matrix):
