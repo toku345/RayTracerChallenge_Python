@@ -231,3 +231,8 @@ def test_multiplying_colors():
     c2 = Color(0.9, 1, 0.1)
     # Then
     assert c1 * c2 == Color(0.9, 0.2, 0.04)
+
+
+def test___repr__():
+    t = Tuple(1, 2, 3, 4)
+    assert t.__repr__() == "1 | 2 | 3 | 4"

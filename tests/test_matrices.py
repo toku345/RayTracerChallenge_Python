@@ -326,3 +326,15 @@ def test_multiplying_a_product_by_its_inverse():
     C = A * B
     # Then
     assert C * B.inverse() == A
+
+
+def test___repr__():
+    A = Matrix(3, -9, 7, 3,
+               3, -8, 2, -9,
+               -4, 4, 4, 1,
+               -6, 5, -1, 1)
+    assert A.__repr__() == """\
+3 | -9 | 7 | 3
+3 | -8 | 2 | -9
+-4 | 4 | 4 | 1
+-6 | 5 | -1 | 1"""
