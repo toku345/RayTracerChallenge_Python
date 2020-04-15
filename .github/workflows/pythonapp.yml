@@ -28,7 +28,7 @@ jobs:
       run: |
         pip install pytest
         pip install pytest-cov
-        pytest --cov=raytracerchallenge_python --cov-branch --cov-fail-under=100 tests/
+        pytest --cov=raytracerchallenge_python --cov-branch --cov-fail-under=100 --cov-report term-missing tests/
     - name: Lint with flake8
       run: |
         pip install flake8
