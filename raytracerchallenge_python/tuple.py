@@ -30,6 +30,9 @@ class Tuple:
     def to_list(self):
         return [self.x, self.y, self.z, self.w]
 
+    def __repr__(self):
+        return f"{self.x} | {self.y} | {self.z} | {self.w}"
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if not isinstance(other, Tuple):
