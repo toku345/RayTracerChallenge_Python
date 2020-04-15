@@ -1,5 +1,7 @@
 from math import sqrt, floor
+
 from raytracerchallenge_python.tuple import Tuple
+from raytracerchallenge_python.helpers import equal
 
 
 class NonInvertibleMatrixError(Exception):
@@ -65,7 +67,7 @@ class Matrix:
         for row in range(self.size):
             for col in range(self.size):
                 c = self.cofactor(row, col)
-                elements.append(round(c / det, 5))
+                elements.append(c / det)
 
         return Matrix(*elements).transpose()
 
@@ -74,7 +76,7 @@ class Matrix:
         if not isinstance(other, Matrix):
             return False
 
-        return all([self.at(r, c) == other.at(r, c)
+        return all([equal(self.at(r, c), other.at(r, c))
                     for r in range(self.size)
                     for c in range(self.size)])
 
