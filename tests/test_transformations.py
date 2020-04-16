@@ -1,5 +1,8 @@
-from raytracerchallenge_python.transformations import translation, scaling
+from raytracerchallenge_python.transformations import (
+    translation, scaling, rotation_x)
 from raytracerchallenge_python.tuple import Point, Vector
+
+from math import pi, sqrt
 
 
 def test_multiplying_by_a_translation_matrix():
@@ -58,3 +61,22 @@ def test_reflection_is_scaling_by_a_negative_value():
     p = Point(2, 3, 4)
     # Then
     assert transform * p == Point(-2, 3, 4)
+
+
+def test_rotating_a_point_around_the_x_axis():
+    # Given
+    p = Point(0, 1, 0)
+    half_quarter = rotation_x(pi / 4)
+    full_quarter = rotation_x(pi / 2)
+    # Then
+    assert half_quarter * p == Point(0, sqrt(2) / 2, sqrt(2) / 2)
+    assert full_quarter * p == Point(0, 0, 1)
+
+
+def test_the_inverse_of_an__x_rotation__rotates_in_the_opposite_direction():
+    # Given
+    p = Point(0, 1, 0)
+    half_quarter = rotation_x(pi / 4)
+    inv = half_quarter.inverse()
+    # Then
+    assert inv * p == Point(0, sqrt(2) / 2, -sqrt(2) / 2)
