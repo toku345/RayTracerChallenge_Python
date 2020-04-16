@@ -148,3 +148,41 @@ def test_a_shearing_transformation_moves_z_in_propotion_to_y():
     p = Point(2, 3, 4)
     # Then
     assert transform * p == Point(2, 3, 7)
+
+
+def test_individual_transformations_are_applied_in_sequence():
+    # Given
+    p = Point(1, 0, 1)
+    A = rotation_x(pi / 2)
+    B = scaling(5, 5, 5)
+    C = translation(10, 5, 7)
+
+    # apply rotation first
+    # When
+    p2 = A * p
+    # Then
+    assert p2 == Point(1, -1, 0)
+
+    # then apply scaling
+    # When
+    p3 = B * p2
+    # Then
+    assert p3 == Point(5, -5, 0)
+
+    # then apply translation
+    # When
+    p4 = C * p3
+    # Then
+    assert p4 == Point(15, 0, 7)
+
+
+def test_chained_transformations_must_be_applied_in_reverse_order():
+    # Given
+    p = Point(1, 0, 1)
+    A = rotation_x(pi / 2)
+    B = scaling(5, 5, 5)
+    C = translation(10, 5, 7)
+    # When
+    T = C * B * A
+    # Then
+    assert T * p == Point(15, 0, 7)
