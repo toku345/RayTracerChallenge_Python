@@ -36,3 +36,10 @@ def rotation_z(radian):
                   sin(radian), cos(radian), 0, 0,
                   0, 0, 1, 0,
                   0, 0, 0, 1)
+
+
+def shearing(xy, xz, yx, yz, zx, zy):
+    return Matrix(1, xy, xz, 0,
+                  yx, 1, yz, 0,
+                  zx, zy, 1, 0,
+                  0, 0, 0, 1)

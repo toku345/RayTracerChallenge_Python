@@ -1,5 +1,5 @@
 from raytracerchallenge_python.transformations import (
-    translation, scaling, rotation_x, rotation_y, rotation_z)
+    translation, scaling, rotation_x, rotation_y, rotation_z, shearing)
 from raytracerchallenge_python.tuple import Point, Vector
 
 from math import pi, sqrt
@@ -100,3 +100,51 @@ def test_rotating_a_point_around_the_z_axis():
     # Then
     assert half_quarter * p == Point(-sqrt(2) / 2, sqrt(2) / 2, 0)
     assert full_quarter * p == Point(-1, 0, 0)
+
+
+def test_a_shearing_transformation_moves_x_in_propotion_to_y():
+    # Given
+    transform = shearing(1, 0, 0, 0, 0, 0)
+    p = Point(2, 3, 4)
+    # Then
+    assert transform * p == Point(5, 3, 4)
+
+
+def test_a_shearing_transformation_moves_x_in_propotion_to_z():
+    # Given
+    transform = shearing(0, 1, 0, 0, 0, 0)
+    p = Point(2, 3, 4)
+    # Then
+    assert transform * p == Point(6, 3, 4)
+
+
+def test_a_shearing_transformation_moves_y_in_propotion_to_x():
+    # Given
+    transform = shearing(0, 0, 1, 0, 0, 0)
+    p = Point(2, 3, 4)
+    # Then
+    assert transform * p == Point(2, 5, 4)
+
+
+def test_a_shearing_transformation_moves_y_in_propotion_to_z():
+    # Given
+    transform = shearing(0, 0, 0, 1, 0, 0)
+    p = Point(2, 3, 4)
+    # Then
+    assert transform * p == Point(2, 7, 4)
+
+
+def test_a_shearing_transformation_moves_z_in_propotion_to_x():
+    # Given
+    transform = shearing(0, 0, 0, 0, 1, 0)
+    p = Point(2, 3, 4)
+    # Then
+    assert transform * p == Point(2, 3, 6)
+
+
+def test_a_shearing_transformation_moves_z_in_propotion_to_y():
+    # Given
+    transform = shearing(0, 0, 0, 0, 0, 1)
+    p = Point(2, 3, 4)
+    # Then
+    assert transform * p == Point(2, 3, 7)
