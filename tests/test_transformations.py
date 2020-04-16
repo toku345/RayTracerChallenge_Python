@@ -1,5 +1,5 @@
 from raytracerchallenge_python.transformations import (
-    translation, scaling, rotation_x, rotation_y)
+    translation, scaling, rotation_x, rotation_y, rotation_z)
 from raytracerchallenge_python.tuple import Point, Vector
 
 from math import pi, sqrt
@@ -90,3 +90,13 @@ def test_rotating_a_point_around_the_y_axis():
     # Then
     assert half_quarter * p == Point(sqrt(2) / 2, 0, sqrt(2) / 2)
     assert full_quarter * p == Point(1, 0, 0)
+
+
+def test_rotating_a_point_around_the_z_axis():
+    # Given
+    p = Point(0, 1, 0)
+    half_quarter = rotation_z(pi / 4)
+    full_quarter = rotation_z(pi / 2)
+    # Then
+    assert half_quarter * p == Point(-sqrt(2) / 2, sqrt(2) / 2, 0)
+    assert full_quarter * p == Point(-1, 0, 0)

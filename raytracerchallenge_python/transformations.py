@@ -29,3 +29,10 @@ def rotation_y(radian):
                   0, 1, 0, 0,
                   -sin(radian), 0, cos(radian), 0,
                   0, 0, 0, 1)
+
+
+def rotation_z(radian):
+    return Matrix(cos(radian), -sin(radian), 0, 0,
+                  sin(radian), cos(radian), 0, 0,
+                  0, 0, 1, 0,
+                  0, 0, 0, 1)
