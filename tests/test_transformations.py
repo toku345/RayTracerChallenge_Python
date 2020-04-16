@@ -1,5 +1,5 @@
 from raytracerchallenge_python.transformations import (
-    translation, scaling, rotation_x)
+    translation, scaling, rotation_x, rotation_y)
 from raytracerchallenge_python.tuple import Point, Vector
 
 from math import pi, sqrt
@@ -80,3 +80,13 @@ def test_the_inverse_of_an__x_rotation__rotates_in_the_opposite_direction():
     inv = half_quarter.inverse()
     # Then
     assert inv * p == Point(0, sqrt(2) / 2, -sqrt(2) / 2)
+
+
+def test_rotating_a_point_around_the_y_axis():
+    # Given
+    p = Point(0, 0, 1)
+    half_quarter = rotation_y(pi / 4)
+    full_quarter = rotation_y(pi / 2)
+    # Then
+    assert half_quarter * p == Point(sqrt(2) / 2, 0, sqrt(2) / 2)
+    assert full_quarter * p == Point(1, 0, 0)
