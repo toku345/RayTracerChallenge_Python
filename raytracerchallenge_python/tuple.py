@@ -27,6 +27,12 @@ class Tuple:
                      self.z / magnitude,
                      self.w / magnitude)
 
+    def dot(self, other):
+        return sum([self.x * other.x,
+                    self.y * other.y,
+                    self.z * other.z,
+                    self.w * other.w])
+
     def to_list(self):
         return [self.x, self.y, self.z, self.w]
 
@@ -79,12 +85,6 @@ class Point(Tuple):
 class Vector(Tuple):
     def __init__(self, x, y, z):
         super().__init__(x, y, z, 0.0)
-
-    def dot(self, other):
-        return sum([self.x * other.x,
-                    self.y * other.y,
-                    self.z * other.z,
-                    self.w * other.w])
 
     def cross(self, other):
         return Vector(self.y * other.z - self.z * other.y,
