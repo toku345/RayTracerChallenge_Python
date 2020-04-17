@@ -11,8 +11,8 @@ def test_a_ray_intersects_a_sphere_at_two_points():
     xs = s.intersect(r)
     # Then
     assert len(xs) == 2
-    assert xs[0] == 4.0
-    assert xs[1] == 6.0
+    assert xs[0].t == 4.0
+    assert xs[1].t == 6.0
 
 
 def test_a_ray_intersects_a_sphere_at_a_tangent():
@@ -23,8 +23,8 @@ def test_a_ray_intersects_a_sphere_at_a_tangent():
     xs = s.intersect(r)
     # Then
     assert len(xs) == 2
-    assert xs[0] == 5.0
-    assert xs[1] == 5.0
+    assert xs[0].t == 5.0
+    assert xs[1].t == 5.0
 
 
 def test_a_ray_misses_s_sphere():
@@ -45,8 +45,8 @@ def test_a_ray_originates_inside_a_sphere():
     xs = s.intersect(r)
     # Then
     assert len(xs) == 2
-    assert xs[0] == -1.0
-    assert xs[1] == 1.0
+    assert xs[0].t == -1.0
+    assert xs[1].t == 1.0
 
 
 def test_a_sphere_is_behind_a_ray():
@@ -57,5 +57,17 @@ def test_a_sphere_is_behind_a_ray():
     xs = s.intersect(r)
     # Then
     assert len(xs) == 2
-    assert xs[0] == -6.0
-    assert xs[1] == -4.0
+    assert xs[0].t == -6.0
+    assert xs[1].t == -4.0
+
+
+def test_intersect_sets_the_object_on_the_intersection():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    s = Sphere()
+    # When
+    xs = s.intersect(r)
+    # Then
+    assert len(xs) == 2
+    assert xs[0].object == s
+    assert xs[1].object == s
