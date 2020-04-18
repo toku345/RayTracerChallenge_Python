@@ -23,3 +23,53 @@ def test_aggregating_intersections():
     assert len(xs) == 2
     assert xs[0].t == 1
     assert xs[1].t == 2
+
+
+def test_the_hit__when_all_intersections_have_positive_t():
+    # Given
+    s = Sphere()
+    i1 = Intersection(1, s)
+    i2 = Intersection(2, s)
+    xs = Intersections(i2, i1)
+    # When
+    i = xs.hit()
+    # Then
+    assert i == i1
+
+
+def test_the_hit__when_some_intersections_have_negative_t():
+    # Given
+    s = Sphere()
+    i1 = Intersection(-1, s)
+    i2 = Intersection(1, s)
+    xs = Intersections(i2, i1)
+    # When
+    i = xs.hit()
+    # Then
+    assert i == i2
+
+
+def test_the_hit__when_all_intersections_have_netative_t():
+    # Given
+    s = Sphere()
+    i1 = Intersection(-2, s)
+    i2 = Intersection(-1, s)
+    xs = Intersections(i2, i1)
+    # When
+    i = xs.hit()
+    # Then
+    assert i is None
+
+
+def test_the_hit_is_always_the_lowest_nonnegative_intersection():
+    # Given
+    s = Sphere()
+    i1 = Intersection(5, s)
+    i2 = Intersection(7, s)
+    i3 = Intersection(-3, s)
+    i4 = Intersection(2, s)
+    xs = Intersections(i1, i2, i3, i4)
+    # When
+    i = xs.hit()
+    # Then
+    assert i == i4

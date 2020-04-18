@@ -13,3 +13,15 @@ class Intersections:
 
     def __getitem__(self, key):
         return self.intersections[key]
+
+    def hit(self):
+        xs = list(filter(lambda x: x.t >= 0, self.intersections))
+
+        if len(xs) < 1:
+            return None
+
+        hit_index = 0
+        for index in range(1, len(xs)):
+            if xs[index].t < xs[hit_index].t:
+                hit_index = index
+        return xs[hit_index]
