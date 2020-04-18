@@ -6,22 +6,18 @@ class Intersection:
 
 class Intersections:
     def __init__(self, *intersections):
-        self.intersections = intersections
+        self.sorted_intersections = sorted(intersections, key=lambda i: i.t)
 
     def __len__(self):
-        return len(self.intersections)
+        return len(self.sorted_intersections)
 
     def __getitem__(self, key):
-        return self.intersections[key]
+        return self.sorted_intersections[key]
 
     def hit(self):
-        xs = list(filter(lambda x: x.t >= 0, self.intersections))
+        xs = list(filter(lambda x: x.t >= 0, self.sorted_intersections))
 
         if len(xs) < 1:
             return None
 
-        hit_index = 0
-        for index in range(1, len(xs)):
-            if xs[index].t < xs[hit_index].t:
-                hit_index = index
-        return xs[hit_index]
+        return xs[0]
