@@ -1,6 +1,8 @@
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
+from raytracerchallenge_python.matrix import identity_matrix
+from raytracerchallenge_python.transformations import translation, scaling
 
 
 def test_a_ray_intersects_a_sphere_at_two_points():
@@ -71,3 +73,44 @@ def test_intersect_sets_the_object_on_the_intersection():
     assert len(xs) == 2
     assert xs[0].object == s
     assert xs[1].object == s
+
+
+def test_a_spheres_default_transformation():
+    # Given
+    s = Sphere()
+    # Then
+    assert s.transform == identity_matrix()
+
+
+def test_changing_a_spheres_transformation():
+    # Given
+    s = Sphere()
+    t = translation(2, 3, 4)
+    # When
+    s.set_transform(t)
+    # Then
+    assert s.transform == t
+
+
+def test_intersecting_a_scaled_sphere_with_a_ray():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    s = Sphere()
+    # When
+    s.set_transform(scaling(2, 2, 2))
+    xs = s.intersect(r)
+    # Then
+    assert len(xs) == 2
+    assert xs[0].t == 3
+    assert xs[1].t == 7
+
+
+def test_intersecting_a_translated_sphere_with_a_ray():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    s = Sphere()
+    # When
+    s.set_transform(translation(5, 0, 0))
+    xs = s.intersect(r)
+    # Then
+    assert len(xs) == 0
