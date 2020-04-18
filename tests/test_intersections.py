@@ -1,4 +1,4 @@
-from raytracerchallenge_python.intersection import Intersection, intersections
+from raytracerchallenge_python.intersection import Intersection, Intersections
 from raytracerchallenge_python.sphere import Sphere
 
 
@@ -18,7 +18,7 @@ def test_aggregating_intersections():
     i1 = Intersection(1, s)
     i2 = Intersection(2, s)
     # When
-    xs = intersections(i1, i2)
+    xs = Intersections(i1, i2)
     # Then
     assert len(xs) == 2
     assert xs[0].t == 1

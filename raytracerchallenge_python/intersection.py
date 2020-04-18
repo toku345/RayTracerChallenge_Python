@@ -4,5 +4,12 @@ class Intersection:
         self.object = object
 
 
-def intersections(*intersections):
-    return intersections
+class Intersections:
+    def __init__(self, *intersections):
+        self.intersections = intersections
+
+    def __len__(self):
+        return len(self.intersections)
+
+    def __getitem__(self, key):
+        return self.intersections[key]
