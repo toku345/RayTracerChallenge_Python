@@ -1,5 +1,6 @@
 from raytracerchallenge_python.tuple import Point
-from raytracerchallenge_python.intersection import Intersection
+from raytracerchallenge_python.intersection import (
+    Intersection, Intersections)
 from raytracerchallenge_python.matrix import identity_matrix
 
 from math import sqrt
@@ -29,4 +30,4 @@ class Sphere():
 
         t1 = (-b - sqrt(discriminant)) / (2 * a)
         t2 = (-b + sqrt(discriminant)) / (2 * a)
-        return (Intersection(t1, self), Intersection(t2, self))
+        return Intersections(Intersection(t1, self), Intersection(t2, self))
