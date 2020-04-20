@@ -32,5 +32,9 @@ class Sphere():
         t2 = (-b + sqrt(discriminant)) / (2 * a)
         return Intersections(Intersection(t1, self), Intersection(t2, self))
 
-    def normal_at(self, p):
-        return (p - Point(0, 0, 0)).normalize()
+    def normal_at(self, world_point):
+        object_point = self.transform.inverse() * world_point
+        object_normal = object_point - Point(0, 0, 0)
+        world_normal = self.transform.inverse().transpose() * object_normal
+        world_normal.w = 0
+        return world_normal.normalize()

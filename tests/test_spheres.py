@@ -2,8 +2,9 @@ from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
 from raytracerchallenge_python.matrix import identity_matrix
-from raytracerchallenge_python.transformations import translation, scaling
-from math import sqrt
+from raytracerchallenge_python.transformations import (
+    translation, scaling, rotation_z)
+from math import pi, sqrt
 
 
 def test_a_ray_intersects_a_sphere_at_two_points():
@@ -160,3 +161,24 @@ def test_the_normal_is_a_normalized_vector():
     n = s.normal_at(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))
     # Then
     assert n == n.normalize()
+
+
+def test_computing_the_normal_on_a_translated_sphere():
+    # Given
+    s = Sphere()
+    s.set_transform(translation(0, 1, 0))
+    # When
+    n = s.normal_at(Point(0, 1.70711, -0.70711))
+    # Then
+    assert n == Vector(0, 0.70711, -0.70711)
+
+
+def test_commputing_the_normal_on_a_transformed_sphere():
+    # Given
+    s = Sphere()
+    m = scaling(1, 0.5, 1) * rotation_z(pi / 5)
+    s.set_transform(m)
+    # When
+    n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
+    # Then
+    assert n == Vector(0, 0.97014, -0.24254)
