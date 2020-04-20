@@ -31,3 +31,6 @@ class Sphere():
         t1 = (-b - sqrt(discriminant)) / (2 * a)
         t2 = (-b + sqrt(discriminant)) / (2 * a)
         return Intersections(Intersection(t1, self), Intersection(t2, self))
+
+    def normal_at(self, p):
+        return (p - Point(0, 0, 0)).normalize()
