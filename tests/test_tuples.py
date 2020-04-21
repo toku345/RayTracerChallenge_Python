@@ -236,3 +236,23 @@ def test_multiplying_colors():
 def test___repr__():
     t = Tuple(1, 2, 3, 4)
     assert t.__repr__() == "1 | 2 | 3 | 4"
+
+
+def test_reflecting_a_vector_approaching_at_45_degree():
+    # Given
+    v = Vector(1, -1, 0)
+    n = Vector(0, 1, 0)
+    # When
+    r = v.reflect(n)
+    # Then
+    assert r == Vector(1, 1, 0)
+
+
+def test_reflecting_a_vector_off_a_slanted_surface():
+    # Given
+    v = Vector(0, -1, 0)
+    n = Vector(sqrt(2) / 2, sqrt(2) / 2, 0)
+    # When
+    r = v.reflect(n)
+    # Then
+    assert r == Vector(1, 0, 0)
