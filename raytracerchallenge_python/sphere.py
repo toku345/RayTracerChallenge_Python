@@ -2,6 +2,7 @@ from raytracerchallenge_python.tuple import Point
 from raytracerchallenge_python.intersection import (
     Intersection, Intersections)
 from raytracerchallenge_python.matrix import identity_matrix
+from raytracerchallenge_python.material import Material
 
 from math import sqrt
 
@@ -9,6 +10,7 @@ from math import sqrt
 class Sphere():
     def __init__(self):
         self.transform = identity_matrix()
+        self.material = Material()
 
     def set_transform(self, new_transform):
         self.transform = new_transform

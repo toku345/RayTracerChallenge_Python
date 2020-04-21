@@ -4,6 +4,7 @@ from raytracerchallenge_python.tuple import Point, Vector
 from raytracerchallenge_python.matrix import identity_matrix
 from raytracerchallenge_python.transformations import (
     translation, scaling, rotation_z)
+from raytracerchallenge_python.material import Material
 from math import pi, sqrt
 
 
@@ -182,3 +183,23 @@ def test_commputing_the_normal_on_a_transformed_sphere():
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     # Then
     assert n == Vector(0, 0.97014, -0.24254)
+
+
+def test_a_sphere_has_a_default_material():
+    # Given
+    s = Sphere()
+    # When
+    m = s.material
+    # Then
+    assert m == Material()
+
+
+def test_a_sphere_may_be_assigned_a_material():
+    # Given
+    s = Sphere()
+    m = Material()
+    m.ambient = 1
+    # When
+    s.material = m
+    # Then
+    assert s.material == m
