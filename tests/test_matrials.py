@@ -1,5 +1,8 @@
 from raytracerchallenge_python.material import Material
-from raytracerchallenge_python.tuple import Color
+from raytracerchallenge_python.tuple import Color, Point, Vector
+from raytracerchallenge_python.point_light import PointLight
+
+from math import sqrt
 
 
 def test_the_default_material():
@@ -24,3 +27,68 @@ def test_material_equality_with_different_materials():
     m2 = Material()
     m2.ambient = 1
     assert m1 != m2
+
+
+def test_lighting_with_the_eye_between_the_light_and_the_surface():
+    # Given
+    m = Material()
+    position = Point(0, 0, 0)
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    # When
+    result = m.lighting(light, position, eyev, normalv)
+    # Then
+    assert result == Color(1.9, 1.9, 1.9)
+
+
+def test_lighting_with_the_eye_between_light_and_surface_eye_offset_45degree():
+    # Given
+    m = Material()
+    position = Point(0, 0, 0)
+    eyev = Vector(0, sqrt(2) / 2, sqrt(2) / 2)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    # When
+    result = m.lighting(light, position, eyev, normalv)
+    # Then
+    assert result == Color(1.0, 1.0, 1.0)
+
+
+def test_lighting_with_the_eye_opposite_surface_light_offset_45degree():
+    # Given
+    m = Material()
+    position = Point(0, 0, 0)
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 10, -10), Color(1, 1, 1))
+    # When
+    result = m.lighting(light, position, eyev, normalv)
+    # Then
+    assert result == Color(0.7364, 0.7364, 0.7364)
+
+
+def test_lighting_with_the_eye_in_the_path_of_the_reflection_vector():
+    # Given
+    m = Material()
+    position = Point(0, 0, 0)
+    eyev = Vector(0, -sqrt(2) / 2, -sqrt(2) / 2)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 10, -10), Color(1, 1, 1))
+    # When
+    result = m.lighting(light, position, eyev, normalv)
+    # Then
+    assert result == Color(1.6364, 1.6364, 1.6364)
+
+
+def test_lighting_with_the_light_behind_the_surface():
+    # Given
+    m = Material()
+    position = Point(0, 0, 0)
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 0, 10), Color(1, 1, 1))
+    # When
+    result = m.lighting(light, position, eyev, normalv)
+    # Then
+    assert result == Color(0.1, 0.1, 0.1)
