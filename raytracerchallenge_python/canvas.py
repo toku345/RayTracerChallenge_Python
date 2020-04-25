@@ -26,7 +26,7 @@ class Canvas:
             if len(line) < self.MAXIMUM_LINE_LENGTH:
                 return [line]
 
-            split_index = self.MAXIMUM_LINE_LENGTH
+            split_index = self.MAXIMUM_LINE_LENGTH - 1
 
             while line[split_index] != " ":
                 split_index -= 1
