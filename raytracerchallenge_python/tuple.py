@@ -39,6 +39,20 @@ class Tuple:
     def reflect(self, normal):
         return self - normal * 2 * self.dot(normal)
 
+    def ppm_pixel_str(self, maximum_color_value):
+        def convert(value):
+            if value < 0:
+                value = 0
+            elif value > 1:
+                value = 1
+            ppm_value = value * maximum_color_value
+            return Decimal(ppm_value).quantize(Decimal('1.'))
+
+        r = convert(self.x)
+        g = convert(self.y)
+        b = convert(self.z)
+        return f"{r} {g} {b}"
+
     def __repr__(self):
         return f"{self.x} | {self.y} | {self.z} | {self.w}"
 
