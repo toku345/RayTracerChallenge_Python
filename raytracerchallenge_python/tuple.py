@@ -116,20 +116,6 @@ class Color(Tuple):
         self.blue = blue
         super().__init__(red, green, blue, 0)
 
-    def ppm_pixel_str(self, maximum_color_value):
-        def convert(value):
-            if value < 0:
-                value = 0
-            elif value > 1:
-                value = 1
-            ppm_value = value * maximum_color_value
-            return Decimal(ppm_value).quantize(Decimal('1.'))
-
-        r = convert(self.red)
-        g = convert(self.green)
-        b = convert(self.blue)
-        return f"{r} {g} {b}"
-
     def __mul__(self, scalar_or_color):
         if type(scalar_or_color) == Color:
             return self._hadamard_product(scalar_or_color)
