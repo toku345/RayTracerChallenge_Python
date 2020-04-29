@@ -9,6 +9,12 @@ class World:
         self.objects = []
         self.light = None
 
+    def intersect_world(self, ray):
+        return sorted([x
+                       for object in self.objects
+                       for x in object.intersect(ray)],
+                      key=lambda x: x.t)
+
 
 def default_world():
     light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))
