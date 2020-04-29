@@ -16,6 +16,12 @@ class World:
               for x in object.intersect(ray)]
         return Intersections(*xs)
 
+    def shade_hit(self, comps):
+        return comps.object.material.lighting(self.light,
+                                              comps.point,
+                                              comps.eyev,
+                                              comps.normalv)
+
 
 def default_world():
     light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))

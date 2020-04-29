@@ -4,6 +4,7 @@ from raytracerchallenge_python.tuple import Point, Vector, Color
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.transformations import scaling
 from raytracerchallenge_python.ray import Ray
+from raytracerchallenge_python.intersection import Intersection
 
 
 def test_createing_a_world():
@@ -43,3 +44,30 @@ def test_intersect_a_world_with_a_ray():
     assert xs[1].t == 4.5
     assert xs[2].t == 5.5
     assert xs[3].t == 6
+
+
+def test_shading_an_intersection():
+    # Given
+    w = default_world()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = w.objects[0]
+    i = Intersection(4, shape)
+    # When
+    comps = i.prepare_computations(r)
+    c = w.shade_hit(comps)
+    # Then
+    assert c == Color(0.38066, 0.47583, 0.2855)
+
+
+def test_shading_an_intersection_from_the_inside():
+    # Given
+    w = default_world()
+    w.light = PointLight(Point(0, 0.25, 0), Color(1, 1, 1))
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = w.objects[1]
+    i = Intersection(0.5, shape)
+    # When
+    comps = i.prepare_computations(r)
+    c = w.shade_hit(comps)
+    # Then
+    assert c == Color(0.90498, 0.90498, 0.90498)
