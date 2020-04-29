@@ -22,6 +22,14 @@ class World:
                                               comps.eyev,
                                               comps.normalv)
 
+    def color_at(self, ray):
+        xs = self.intersect_world(ray)
+        if not xs:
+            return Color(0, 0, 0)
+        hit = xs.hit()
+        comps = hit.prepare_computations(ray)
+        return self.shade_hit(comps)
+
 
 def default_world():
     light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))
