@@ -4,21 +4,26 @@ class Intersection:
         self.object = object
 
     def prepare_computations(self, ray):
-        point = ray.position(self.t)
         return Computations(t=self.t,
                             object=self.object,
-                            point=point,
-                            eyev=-ray.direction,
-                            normalv=self.object.normal_at(point))
+                            point=ray.position(self.t),
+                            eyev=-ray.direction)
 
 
 class Computations:
-    def __init__(self, t, object, point, eyev, normalv):
+    def __init__(self, t, object, point, eyev):
         self.t = t
         self.object = object
         self.point = point
         self.eyev = eyev
-        self.normalv = normalv
+
+        normalv = self.object.normal_at(self.point)
+        if normalv.dot(self.eyev) < 0:
+            self.inside = True
+            self.normalv = -normalv
+        else:
+            self.inside = False
+            self.normalv = normalv
 
 
 class Intersections:

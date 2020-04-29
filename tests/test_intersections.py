@@ -90,3 +90,28 @@ def test_precomputing_the_state_of_an_intersection():
     assert comps.point == Point(0, 0, -1)
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.normalv == Vector(0, 0, -1)
+
+
+def test_the_hit__when_an_intersection_occurs_on_the_outside():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = Sphere()
+    i = Intersection(4, shape)
+    # When
+    comps = i.prepare_computations(r)
+    # Then
+    assert comps.inside is False
+
+
+def test_the_hit__when_an_intersection_occurs_on_the_inside():
+    # Given
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = Sphere()
+    i = Intersection(1, shape)
+    # When
+    comps = i.prepare_computations(r)
+    # Then
+    assert comps.point == Point(0, 0, 1)
+    assert comps.eyev == Vector(0, 0, -1)
+    assert comps.inside is True
+    assert comps.normalv == Vector(0, 0, -1)
