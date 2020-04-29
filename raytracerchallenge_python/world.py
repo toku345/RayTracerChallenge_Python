@@ -2,6 +2,7 @@ from raytracerchallenge_python.point_light import PointLight
 from raytracerchallenge_python.tuple import Point, Color
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.transformations import scaling
+from raytracerchallenge_python.intersection import Intersections
 
 
 class World:
@@ -10,10 +11,10 @@ class World:
         self.light = None
 
     def intersect_world(self, ray):
-        return sorted([x
-                       for object in self.objects
-                       for x in object.intersect(ray)],
-                      key=lambda x: x.t)
+        xs = [x
+              for object in self.objects
+              for x in object.intersect(ray)]
+        return Intersections(*xs)
 
 
 def default_world():

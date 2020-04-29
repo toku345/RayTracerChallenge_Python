@@ -1,5 +1,7 @@
 from raytracerchallenge_python.intersection import Intersection, Intersections
 from raytracerchallenge_python.sphere import Sphere
+from raytracerchallenge_python.ray import Ray
+from raytracerchallenge_python.tuple import Point, Vector
 
 
 def test_an_intersection_encapsulates_t_and_object():
@@ -73,3 +75,18 @@ def test_the_hit_is_always_the_lowest_nonnegative_intersection():
     i = xs.hit()
     # Then
     assert i == i4
+
+
+def test_precomputing_the_state_of_an_intersection():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = Sphere()
+    i = Intersection(4, shape)
+    # When
+    comps = i.prepare_computations(r)
+    # Then
+    assert comps.t == i.t
+    assert comps.object == i.object
+    assert comps.point == Point(0, 0, -1)
+    assert comps.eyev == Vector(0, 0, -1)
+    assert comps.normalv == Vector(0, 0, -1)
