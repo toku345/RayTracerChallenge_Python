@@ -33,6 +33,11 @@ class Tuple:
                     self.z * other.z,
                     self.w * other.w])
 
+    def cross(self, other):
+        return Vector(self.y * other.z - self.z * other.y,
+                      self.z * other.x - self.x * other.z,
+                      self.x * other.y - self.y * other.x)
+
     def to_list(self):
         return [self.x, self.y, self.z, self.w]
 
@@ -102,11 +107,6 @@ class Point(Tuple):
 class Vector(Tuple):
     def __init__(self, x, y, z):
         super().__init__(x, y, z, 0.0)
-
-    def cross(self, other):
-        return Vector(self.y * other.z - self.z * other.y,
-                      self.z * other.x - self.x * other.z,
-                      self.x * other.y - self.y * other.x)
 
 
 class Color(Tuple):

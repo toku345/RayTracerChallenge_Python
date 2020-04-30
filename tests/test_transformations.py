@@ -1,6 +1,8 @@
 from raytracerchallenge_python.transformations import (
-    translation, scaling, rotation_x, rotation_y, rotation_z, shearing)
+    translation, scaling, rotation_x, rotation_y, rotation_z, shearing,
+    view_transform)
 from raytracerchallenge_python.tuple import Point, Vector
+from raytracerchallenge_python.matrix import identity_matrix, Matrix
 
 from math import pi, sqrt
 
@@ -186,3 +188,50 @@ def test_chained_transformations_must_be_applied_in_reverse_order():
     T = C * B * A
     # Then
     assert T * p == Point(15, 0, 7)
+
+
+def test_the_transformation_matrix_for_the_default_orientation():
+    # Given
+    f = Point(0, 0, 0)  # from
+    to = Point(0, 0, -1)
+    up = Vector(0, 1, 0)
+    # When
+    t = view_transform(f, to, up)
+    # Then
+    assert t == identity_matrix()
+
+
+def test_a_view_transformation_matrix_looking_in_positive_z_direction():
+    # Given
+    f = Point(0, 0, 0)
+    to = Point(0, 0, 1)
+    up = Vector(0, 1, 0)
+    # When
+    t = view_transform(f, to, up)
+    # Then
+    assert t == scaling(-1, 1, -1)
+
+
+def test_the_view_transformation_moves_the_world():
+    # Given
+    f = Point(0, 0, 8)
+    to = Point(0, 0, 0)
+    up = Vector(0, 1, 0)
+    # When
+    t = view_transform(f, to, up)
+    # Then
+    assert t == translation(0, 0, -8)
+
+
+def test_an_arbitray_view_transformation():
+    # Given
+    f = Point(1, 3, 2)
+    to = Point(4, -2, 8)
+    up = Vector(1, 1, 0)
+    # When
+    t = view_transform(f, to, up)
+    # Then
+    assert t == Matrix(-0.50709, 0.50709, 0.67612, -2.36643,
+                       0.76772, 0.60609, 0.12122, -2.82843,
+                       -0.35857, 0.59761, -0.71714, 0.00000,
+                       0.00000, 0.00000,  0.00000,  1.00000)
