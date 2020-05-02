@@ -1,6 +1,7 @@
 from raytracerchallenge_python.matrix import identity_matrix
 from raytracerchallenge_python.tuple import Point
 from raytracerchallenge_python.ray import Ray
+from raytracerchallenge_python.canvas import Canvas
 
 from math import tan
 
@@ -39,3 +40,12 @@ class Camera:
         direction = (pixel - origin).normalize()
 
         return Ray(origin, direction)
+
+    def render(self, world):
+        image = Canvas(self.hsize, self.vsize)
+        for y in range(self.vsize):
+            for x in range(self.hsize):
+                ray = self.ray_for_pixel(x, y)
+                color = world.color_at(ray)
+                image.write_pixel(x, y, color)
+        return image

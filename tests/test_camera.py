@@ -1,7 +1,9 @@
 from raytracerchallenge_python.camera import Camera
 from raytracerchallenge_python.matrix import identity_matrix
-from raytracerchallenge_python.tuple import Point, Vector
-from raytracerchallenge_python.transformations import rotation_y, translation
+from raytracerchallenge_python.tuple import Point, Vector, Color
+from raytracerchallenge_python.transformations import (
+    rotation_y, translation, view_transform)
+from raytracerchallenge_python.world import default_world
 
 from raytracerchallenge_python.helpers import equal
 
@@ -65,3 +67,17 @@ def test_constructing_a_ray_when_the_camera_is_transformed():
     # Then
     assert r.origin == Point(0, 2, -5)
     assert r.direction == Vector(sqrt(2) / 2, 0, -sqrt(2) / 2)
+
+
+def test_rendering_a_world_with_a_camera():
+    # Given
+    w = default_world()
+    c = Camera(11, 11, pi / 2)
+    f = Point(0, 0, -5)
+    to = Point(0, 0, 0)
+    up = Vector(0, 1, 0)
+    c.transform = view_transform(f, to, up)
+    # When
+    image = c.render(w)
+    # Then
+    assert image.pixel_at(5, 5) == Color(0.38066, 0.47583, 0.2855)
