@@ -1,4 +1,6 @@
 from raytracerchallenge_python.matrix import identity_matrix
+from raytracerchallenge_python.tuple import Point
+from raytracerchallenge_python.ray import Ray
 
 from math import tan
 
@@ -22,3 +24,18 @@ class Camera:
             self.half_width = half_view * aspect
             self.half_height = half_view
         self.pixel_size = (self.half_width * 2) / self.hsize
+
+    def ray_for_pixel(self, px, py):
+        # the offsets from the edge of the canvas to the pixel's center
+        xoffset = (px + 0.5) * self.pixel_size
+        yoffset = (py + 0.5) * self.pixel_size
+
+        # the untransformed coordinates of the pixel in world space.
+        world_x = self.half_width - xoffset
+        world_y = self.half_height - yoffset
+
+        pixel = self.transform.inverse() * Point(world_x, world_y, -1)
+        origin = self.transform.inverse() * Point(0, 0, 0)
+        direction = (pixel - origin).normalize()
+
+        return Ray(origin, direction)
