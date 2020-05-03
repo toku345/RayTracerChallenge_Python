@@ -92,3 +92,17 @@ def test_lighting_with_the_light_behind_the_surface():
     result = m.lighting(light, position, eyev, normalv)
     # Then
     assert result == Color(0.1, 0.1, 0.1)
+
+
+def test_lighting_with_the_surface_in_shadow():
+    # Given
+    m = Material()
+    position = Point(0, 0, 0)
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    in_shadow = True
+    # When
+    result = m.lighting(light, position, eyev, normalv, in_shadow)
+    # Then
+    assert result == Color(0.1, 0.1, 0.1)

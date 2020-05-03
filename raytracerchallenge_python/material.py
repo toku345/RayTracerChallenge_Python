@@ -17,10 +17,13 @@ class Material:
                     self.specular == other.specular,
                     self.shininess == other.shininess])
 
-    def lighting(self, light, point, eyev, normalv):
+    def lighting(self, light, point, eyev, normalv, in_shadow=False):
         effective_color = self.color * light.intensity
-        lightv = (light.position - point).normalize()
         ambient = effective_color * self.ambient
+        if in_shadow:
+            return ambient
+
+        lightv = (light.position - point).normalize()
         light_dot_normal = lightv.dot(normalv)
 
         black = Color(0, 0, 0)
