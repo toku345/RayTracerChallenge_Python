@@ -105,3 +105,35 @@ def test_the_color_with_an_intersection_behind_the_ray():
     c = w.color_at(r)
     # Then
     assert c == inner.material.color
+
+
+def test_there_is_no_shadow_when_nothing_is_collinear_with_point_and_light():
+    # Given
+    w = default_world()
+    p = Point(0, 10, 0)
+    # Then
+    assert w.is_shadowed(p) is False
+
+
+def test_the_shadow_when_an_object_is_between_the_point_and_the_light():
+    # Given
+    w = default_world()
+    p = Point(10, -10, 10)
+    # Then
+    assert w.is_shadowed(p) is True
+
+
+def test_there_is_no_shadow_when_an_object_is_behind_the_light():
+    # Given
+    w = default_world()
+    p = Point(-20, 20, -20)
+    # Then
+    assert w.is_shadowed(p) is False
+
+
+def test_there_is_no_shadow_when_an_object_is_behind_the_point():
+    # Given
+    w = default_world()
+    p = Point(-2, 2, -2)
+    # Then
+    assert w.is_shadowed(p) is False

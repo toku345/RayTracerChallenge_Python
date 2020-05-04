@@ -3,6 +3,7 @@ from raytracerchallenge_python.tuple import Point, Color
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.transformations import scaling
 from raytracerchallenge_python.intersection import Intersections
+from raytracerchallenge_python.ray import Ray
 
 
 class World:
@@ -29,6 +30,20 @@ class World:
         hit = xs.hit()
         comps = hit.prepare_computations(ray)
         return self.shade_hit(comps)
+
+    def is_shadowed(self, point):
+        v = self.light.position - point
+        distance = v.magnitude()
+        direction = v.normalize()
+
+        r = Ray(point, direction)
+        intersections = self.intersect_world(r)
+
+        h = intersections.hit()
+        if h and h.t < distance:
+            return True
+        else:
+            return False
 
 
 def default_world():
