@@ -55,7 +55,7 @@ def default_world():
     s1.material.diffuse = 0.7
     s1.material.specular = 0.2
     s2 = Sphere()
-    s2.set_transform(scaling(0.5, 0.5, 0.5))
+    s2.transform = scaling(0.5, 0.5, 0.5)
 
     w = World()
     w.light = light

@@ -90,7 +90,7 @@ def test_changing_a_spheres_transformation():
     s = Sphere()
     t = translation(2, 3, 4)
     # When
-    s.set_transform(t)
+    s.transform = t
     # Then
     assert s.transform == t
 
@@ -100,7 +100,7 @@ def test_intersecting_a_scaled_sphere_with_a_ray():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     s = Sphere()
     # When
-    s.set_transform(scaling(2, 2, 2))
+    s.transform = scaling(2, 2, 2)
     xs = s.intersect(r)
     # Then
     assert len(xs) == 2
@@ -113,7 +113,7 @@ def test_intersecting_a_translated_sphere_with_a_ray():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     s = Sphere()
     # When
-    s.set_transform(translation(5, 0, 0))
+    s.transform = translation(5, 0, 0)
     xs = s.intersect(r)
     # Then
     assert len(xs) == 0
@@ -167,7 +167,7 @@ def test_the_normal_is_a_normalized_vector():
 def test_computing_the_normal_on_a_translated_sphere():
     # Given
     s = Sphere()
-    s.set_transform(translation(0, 1, 0))
+    s.transform = translation(0, 1, 0)
     # When
     n = s.normal_at(Point(0, 1.70711, -0.70711))
     # Then
@@ -178,7 +178,7 @@ def test_commputing_the_normal_on_a_transformed_sphere():
     # Given
     s = Sphere()
     m = scaling(1, 0.5, 1) * rotation_z(pi / 5)
-    s.set_transform(m)
+    s.transform = m
     # When
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     # Then

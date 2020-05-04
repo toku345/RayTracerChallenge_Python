@@ -16,9 +16,6 @@ class Sphere():
         return all([self.transform == other.transform,
                     self.material == other.material])
 
-    def set_transform(self, new_transform):
-        self.transform = new_transform
-
     def intersect(self, ray):
         ray2 = ray.transform(self.transform.inverse())
 
