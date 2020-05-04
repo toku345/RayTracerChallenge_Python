@@ -2,6 +2,9 @@ from raytracerchallenge_python.intersection import Intersection, Intersections
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
+from raytracerchallenge_python.transformations import translation
+
+from raytracerchallenge_python.helpers import EPSILON
 
 
 def test_an_intersection_encapsulates_t_and_object():
@@ -115,3 +118,16 @@ def test_the_hit__when_an_intersection_occurs_on_the_inside():
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.inside is True
     assert comps.normalv == Vector(0, 0, -1)
+
+
+def test_the_hit_should_offset_the_point():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = Sphere()
+    shape.transform = translation(0, 0, 1)
+    i = Intersection(5, shape)
+    # When
+    comps = i.prepare_computations(r)
+    # Then
+    assert comps.over_point.z < -EPSILON / 2
+    assert comps.point.z > comps.over_point.z

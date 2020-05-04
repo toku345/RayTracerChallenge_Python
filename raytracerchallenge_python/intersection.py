@@ -1,3 +1,6 @@
+from raytracerchallenge_python.helpers import EPSILON
+
+
 class Intersection:
     def __init__(self, t, object):
         self.t = t
@@ -24,6 +27,10 @@ class Computations:
         else:
             self.inside = False
             self.normalv = normalv
+
+        # after computing and (if appropriate) negating
+        # the normal vector...
+        self.over_point = self.point + self.normalv * EPSILON
 
 
 class Intersections:

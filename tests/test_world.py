@@ -2,7 +2,7 @@ from raytracerchallenge_python.world import World, default_world
 from raytracerchallenge_python.point_light import PointLight
 from raytracerchallenge_python.tuple import Point, Vector, Color
 from raytracerchallenge_python.sphere import Sphere
-from raytracerchallenge_python.transformations import scaling
+from raytracerchallenge_python.transformations import scaling, translation
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.intersection import Intersection
 
@@ -137,3 +137,21 @@ def test_there_is_no_shadow_when_an_object_is_behind_the_point():
     p = Point(-2, 2, -2)
     # Then
     assert w.is_shadowed(p) is False
+
+
+def test__shade_hit__is_given_an_intersection_in_shadow():
+    # Given
+    w = World()
+    w.light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    s1 = Sphere()
+    w.objects.append(s1)
+    s2 = Sphere()
+    s2.transform = translation(0, 0, 10)
+    w.objects.append(s2)
+    r = Ray(Point(0, 0, 5), Vector(0, 0, 1))
+    i = Intersection(4, s2)
+    # When
+    comps = i.prepare_computations(r)
+    c = w.shade_hit(comps)
+    # Then
+    assert c == Color(0.1, 0.1, 0.1)

@@ -18,10 +18,12 @@ class World:
         return Intersections(*xs)
 
     def shade_hit(self, comps):
+        shadowed = self.is_shadowed(comps.over_point)
         return comps.object.material.lighting(self.light,
-                                              comps.point,
+                                              comps.over_point,
                                               comps.eyev,
-                                              comps.normalv)
+                                              comps.normalv,
+                                              shadowed)
 
     def color_at(self, ray):
         xs = self.intersect_world(ray)
