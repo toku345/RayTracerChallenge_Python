@@ -78,23 +78,6 @@ def test_intersect_sets_the_object_on_the_intersection():
     assert xs[1].object == s
 
 
-def test_a_spheres_default_transformation():
-    # Given
-    s = Sphere()
-    # Then
-    assert s.transform == identity_matrix()
-
-
-def test_changing_a_spheres_transformation():
-    # Given
-    s = Sphere()
-    t = translation(2, 3, 4)
-    # When
-    s.transform = t
-    # Then
-    assert s.transform == t
-
-
 def test_intersecting_a_scaled_sphere_with_a_ray():
     # Given
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
@@ -183,23 +166,3 @@ def test_commputing_the_normal_on_a_transformed_sphere():
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     # Then
     assert n == Vector(0, 0.97014, -0.24254)
-
-
-def test_a_sphere_has_a_default_material():
-    # Given
-    s = Sphere()
-    # When
-    m = s.material
-    # Then
-    assert m == Material()
-
-
-def test_a_sphere_may_be_assigned_a_material():
-    # Given
-    s = Sphere()
-    m = Material()
-    m.ambient = 1
-    # When
-    s.material = m
-    # Then
-    assert s.material == m
