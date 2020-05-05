@@ -1,17 +1,12 @@
 from raytracerchallenge_python.tuple import Point
 from raytracerchallenge_python.intersection import (
     Intersection, Intersections)
-from raytracerchallenge_python.matrix import identity_matrix
-from raytracerchallenge_python.material import Material
+from raytracerchallenge_python.shape import Shape
 
 from math import sqrt
 
 
-class Sphere():
-    def __init__(self):
-        self.transform = identity_matrix()
-        self.material = Material()
-
+class Sphere(Shape):
     def __eq__(self, other):
         return all([self.transform == other.transform,
                     self.material == other.material])
