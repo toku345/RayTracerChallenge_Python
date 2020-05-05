@@ -3,9 +3,12 @@ from raytracerchallenge_python.transformations import translation
 from raytracerchallenge_python.shape import Shape
 from raytracerchallenge_python.material import Material
 
+import pytest
+
 
 class MockShape(Shape):
-    pass
+    def local_intersect(self, ray):
+        pass
 
 
 def test_the_default_transformation():
@@ -42,3 +45,11 @@ def test_assigning_a_material():
     s.material = m
     # Then
     assert s.material == m
+
+
+def test_raise_exception_when_not_implement_local_instance():
+    class BadShape(Shape):
+        pass
+
+    with pytest.raises(TypeError):
+        BadShape()
