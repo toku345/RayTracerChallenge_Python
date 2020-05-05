@@ -16,3 +16,14 @@ class Shape(metaclass=ABCMeta):
     @abstractmethod
     def local_intersect(self):
         """ abstruct method !!! """
+
+    def normal_at(self, point):
+        local_point = self.transform.inverse() * point
+        local_normal = self.local_normal_at(local_point)
+        world_normal = self.transform.inverse().transpose() * local_normal
+        world_normal.w = 0
+        return world_normal.normalize()
+
+    @abstractmethod
+    def local_normal_at(self, point):
+        """ abstruct method !!! """
