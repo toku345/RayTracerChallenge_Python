@@ -10,9 +10,9 @@ class Shape(metaclass=ABCMeta):
         self.material = Material()
 
     def intersect(self, ray):
-        local_ray = ray.transform(self.transform.inverse())
-        return self.local_intersect(local_ray)
+        self.saved_ray = ray.transform(self.transform.inverse())
+        return self.local_intersect()
 
     @abstractmethod
-    def local_intersect(self, ray):
+    def local_intersect(self):
         """ abstruct method !!! """

@@ -11,13 +11,13 @@ class Sphere(Shape):
         return all([self.transform == other.transform,
                     self.material == other.material])
 
-    def local_intersect(self, ray):
+    def local_intersect(self):
         # the vector from the sphere's center, to the ray origin
         # remember: the sphere is centered at the world origin
-        sphere_to_ray = ray.origin - Point(0, 0, 0)
+        sphere_to_ray = self.saved_ray.origin - Point(0, 0, 0)
 
-        a = ray.direction.dot(ray.direction)
-        b = 2 * ray.direction.dot(sphere_to_ray)
+        a = self.saved_ray.direction.dot(self.saved_ray.direction)
+        b = 2 * self.saved_ray.direction.dot(sphere_to_ray)
         c = sphere_to_ray.dot(sphere_to_ray) - 1
         discriminant = b ** 2 - 4 * a * c
 
