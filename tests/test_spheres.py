@@ -1,10 +1,8 @@
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
-from raytracerchallenge_python.matrix import identity_matrix
 from raytracerchallenge_python.transformations import (
     translation, scaling, rotation_z)
-from raytracerchallenge_python.material import Material
 from math import pi, sqrt
 
 
