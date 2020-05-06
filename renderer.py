@@ -1,33 +1,20 @@
 #!/usr/bin/env python3
 from raytracerchallenge_python.sphere import Sphere
+from raytracerchallenge_python.plane import Plane
 from raytracerchallenge_python.material import Material
 from raytracerchallenge_python.tuple import Color, Point, Vector
 from raytracerchallenge_python.camera import Camera
 from raytracerchallenge_python.world import World
 from raytracerchallenge_python.point_light import PointLight
 from raytracerchallenge_python.transformations import (
-    scaling, view_transform, translation, rotation_x, rotation_y)
+    scaling, view_transform, translation)
 
 from math import pi
 
 if __name__ == "__main__":
-    floor = Sphere()
-    floor.transform = scaling(10, 0.01, 10)
+    floor = Plane()
     floor.material = Material()
     floor.material.color = Color(1, 0.9, 0.9)
-    floor.material.specular = 0
-
-    left_wall = Sphere()
-    left_wall.transform = \
-        translation(0, 0, 5) * rotation_y(-pi / 4) * \
-        rotation_x(pi / 2) * scaling(10, 0.01, 10)
-    left_wall.material = floor.material
-
-    right_wall = Sphere()
-    right_wall.transform = \
-        translation(0, 0, 5) * rotation_y(pi / 4) * \
-        rotation_x(pi / 2) * scaling(10, 0.01, 10)
-    right_wall.material = floor.material
 
     middle = Sphere()
     middle.transform = translation(-0.5, 1, 0.5)
@@ -51,11 +38,13 @@ if __name__ == "__main__":
     left.material.specular = 0.3
 
     world = World()
-    world.objects = [floor, left_wall, right_wall, middle, right, left]
+    world.objects = [floor, middle, right, left]
     world.light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))
 
     camera = Camera(100, 50, pi / 3)
     camera.transform = view_transform(Point(0, 1.5, -5),
                                       Point(0, 1, 0),
                                       Vector(0, 1, 0))
-    print(camera.render(world).to_ppm())
+
+    canvas = camera.render(world)
+    print(canvas.to_ppm())

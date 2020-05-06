@@ -29,7 +29,11 @@ class World:
         xs = self.intersect_world(ray)
         if not xs:
             return Color(0, 0, 0)
+
         hit = xs.hit()
+        if not hit:
+            return Color(0, 0, 0)
+
         comps = hit.prepare_computations(ray)
         return self.shade_hit(comps)
 
