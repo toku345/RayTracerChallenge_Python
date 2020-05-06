@@ -2,6 +2,7 @@ from raytracerchallenge_python.world import World, default_world
 from raytracerchallenge_python.point_light import PointLight
 from raytracerchallenge_python.tuple import Point, Vector, Color
 from raytracerchallenge_python.sphere import Sphere
+from raytracerchallenge_python.plane import Plane
 from raytracerchallenge_python.transformations import scaling, translation
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.intersection import Intersection
@@ -80,6 +81,15 @@ def test_the_color_when_a_ray_misses():
     # When
     c = w.color_at(r)
     # Then
+    assert c == Color(0, 0, 0)
+
+
+def test_the_color_when_a_ray_misses__only_negative_intersection_t():
+    w = World()
+    w.light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))
+    w.objects = [Plane()]
+    r = Ray(Point(0, 10, 0), Vector(0, 1, 1).normalize())
+    c = w.color_at(r)
     assert c == Color(0, 0, 0)
 
 
