@@ -9,16 +9,23 @@ class Material:
         self.diffuse = 0.9
         self.specular = 0.9
         self.shininess = 200.0
+        self.pattern = None
 
     def __eq__(self, other):
         return all([self.color == other.color,
                     self.ambient == other.ambient,
                     self.diffuse == other.diffuse,
                     self.specular == other.specular,
-                    self.shininess == other.shininess])
+                    self.shininess == other.shininess,
+                    self.pattern == other.pattern])
 
     def lighting(self, light, point, eyev, normalv, in_shadow=False):
-        effective_color = self.color * light.intensity
+        if self.pattern:
+            color = self.pattern.stripe_at(point)
+        else:
+            color = self.color
+
+        effective_color = color * light.intensity
         ambient = effective_color * self.ambient
         if in_shadow:
             return ambient

@@ -1,6 +1,7 @@
 from raytracerchallenge_python.material import Material
 from raytracerchallenge_python.tuple import Color, Point, Vector
 from raytracerchallenge_python.point_light import PointLight
+from raytracerchallenge_python.stripe_pattern import StripePattern
 
 from math import sqrt
 
@@ -106,3 +107,21 @@ def test_lighting_with_the_surface_in_shadow():
     result = m.lighting(light, position, eyev, normalv, in_shadow)
     # Then
     assert result == Color(0.1, 0.1, 0.1)
+
+
+def test_lighting_with_a_pattern_applied():
+    # Given
+    m = Material()
+    m.pattern = StripePattern(Color(1, 1, 1), Color(0, 0, 0))
+    m.ambient = 1
+    m.diffuse = 0
+    m.specular = 0
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    # When
+    c1 = m.lighting(light, Point(0.9, 0, 0), eyev, normalv)
+    c2 = m.lighting(light, Point(1.1, 0, 0), eyev, normalv)
+    # Then
+    assert c1 == Color(1, 1, 1)
+    assert c2 == Color(0, 0, 0)
