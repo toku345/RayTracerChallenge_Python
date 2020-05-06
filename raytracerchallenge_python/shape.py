@@ -10,11 +10,11 @@ class Shape(metaclass=ABCMeta):
         self.material = Material()
 
     def intersect(self, ray):
-        self.saved_ray = ray.transform(self.transform.inverse())
-        return self.local_intersect()
+        local_ray = ray.transform(self.transform.inverse())
+        return self.local_intersect(local_ray)
 
     @abstractmethod
-    def local_intersect(self):
+    def local_intersect(self, ray):
         """ abstruct method !!! """
 
     def normal_at(self, point):

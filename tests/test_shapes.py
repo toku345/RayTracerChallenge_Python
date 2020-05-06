@@ -12,8 +12,8 @@ import pytest
 
 
 class MockShape(Shape):
-    def local_intersect(self):
-        pass
+    def local_intersect(self, ray):
+        self.saved_ray = ray
 
     def local_normal_at(self, p):
         return Vector(p.x, p.y, p.z)
@@ -90,7 +90,7 @@ def test_intersecting_a_translated_shape_with_a_ray():
 
 def test_raise_exception_when_not_implement_local_normal_at():
     class BadShape(Shape):
-        def local_intersect(self):
+        def local_intersect(self, ray):
             pass
 
     with pytest.raises(TypeError):
