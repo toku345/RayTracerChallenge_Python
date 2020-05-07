@@ -2,6 +2,7 @@ from raytracerchallenge_python.material import Material
 from raytracerchallenge_python.tuple import Color, Point, Vector
 from raytracerchallenge_python.point_light import PointLight
 from raytracerchallenge_python.stripe_pattern import StripePattern
+from raytracerchallenge_python.sphere import Sphere
 
 from math import sqrt
 
@@ -37,8 +38,9 @@ def test_lighting_with_the_eye_between_the_light_and_the_surface():
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    object = Sphere()
     # When
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(object, light, position, eyev, normalv)
     # Then
     assert result == Color(1.9, 1.9, 1.9)
 
@@ -50,8 +52,9 @@ def test_lighting_with_the_eye_between_light_and_surface_eye_offset_45degree():
     eyev = Vector(0, sqrt(2) / 2, sqrt(2) / 2)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    object = Sphere()
     # When
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(object, light, position, eyev, normalv)
     # Then
     assert result == Color(1.0, 1.0, 1.0)
 
@@ -63,8 +66,9 @@ def test_lighting_with_the_eye_opposite_surface_light_offset_45degree():
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 10, -10), Color(1, 1, 1))
+    object = Sphere()
     # When
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(object, light, position, eyev, normalv)
     # Then
     assert result == Color(0.7364, 0.7364, 0.7364)
 
@@ -76,8 +80,9 @@ def test_lighting_with_the_eye_in_the_path_of_the_reflection_vector():
     eyev = Vector(0, -sqrt(2) / 2, -sqrt(2) / 2)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 10, -10), Color(1, 1, 1))
+    object = Sphere()
     # When
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(object, light, position, eyev, normalv)
     # Then
     assert result == Color(1.6364, 1.6364, 1.6364)
 
@@ -89,8 +94,9 @@ def test_lighting_with_the_light_behind_the_surface():
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, 10), Color(1, 1, 1))
+    object = Sphere()
     # When
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(object, light, position, eyev, normalv)
     # Then
     assert result == Color(0.1, 0.1, 0.1)
 
@@ -103,8 +109,9 @@ def test_lighting_with_the_surface_in_shadow():
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
     in_shadow = True
+    object = Sphere()
     # When
-    result = m.lighting(light, position, eyev, normalv, in_shadow)
+    result = m.lighting(object, light, position, eyev, normalv, in_shadow)
     # Then
     assert result == Color(0.1, 0.1, 0.1)
 
@@ -119,9 +126,10 @@ def test_lighting_with_a_pattern_applied():
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Color(1, 1, 1))
+    object = Sphere()
     # When
-    c1 = m.lighting(light, Point(0.9, 0, 0), eyev, normalv)
-    c2 = m.lighting(light, Point(1.1, 0, 0), eyev, normalv)
+    c1 = m.lighting(object, light, Point(0.9, 0, 0), eyev, normalv)
+    c2 = m.lighting(object, light, Point(1.1, 0, 0), eyev, normalv)
     # Then
     assert c1 == Color(1, 1, 1)
     assert c2 == Color(0, 0, 0)

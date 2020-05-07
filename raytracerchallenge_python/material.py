@@ -19,9 +19,9 @@ class Material:
                     self.shininess == other.shininess,
                     self.pattern == other.pattern])
 
-    def lighting(self, light, point, eyev, normalv, in_shadow=False):
+    def lighting(self, object, light, point, eyev, normalv, in_shadow=False):
         if self.pattern:
-            color = self.pattern.stripe_at(point)
+            color = self.pattern.stripe_at_object(object, point)
         else:
             color = self.color
 
