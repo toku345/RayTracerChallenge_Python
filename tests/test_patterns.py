@@ -1,7 +1,9 @@
-from raytracerchallenge_python.tuple import Color, Point
+from raytracerchallenge_python.pattern import Pattern
 from raytracerchallenge_python.stripe_pattern import StripePattern
+from raytracerchallenge_python.tuple import Color, Point
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.transformations import scaling, translation
+from raytracerchallenge_python.matrix import identity_matrix
 
 BLACK = Color(0, 0, 0)
 WHITE = Color(1, 1, 1)
@@ -77,3 +79,23 @@ def test_stripes_with_both_an_object_and_a_pattern_transformation():
     c = pattern.stripe_at_object(object, Point(2.5, 0, 0))
     # Then
     assert c == WHITE
+
+
+class TestPattern(Pattern):
+    pass
+
+
+def test_the_default_pattern_transformation():
+    # Given
+    pattern = TestPattern()
+    # Then
+    assert pattern.transform == identity_matrix()
+
+
+def test_assigning_a_transformation():
+    # Given
+    pattern = TestPattern()
+    # When
+    pattern.transform = translation(1, 2, 3)
+    # Then
+    assert pattern.transform == translation(1, 2, 3)

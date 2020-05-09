@@ -1,13 +1,13 @@
-from raytracerchallenge_python.matrix import identity_matrix
+from raytracerchallenge_python.pattern import Pattern
 
 from math import floor
 
 
-class StripePattern:
+class StripePattern(Pattern):
     def __init__(self, a, b):
+        super().__init__()
         self.a = a
         self.b = b
-        self.transform = identity_matrix()
 
     def stripe_at(self, point):
         if floor(point.x) % 2 == 0:
