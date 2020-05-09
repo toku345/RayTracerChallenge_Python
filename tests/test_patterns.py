@@ -3,20 +3,20 @@ from raytracerchallenge_python.matrix import identity_matrix
 from raytracerchallenge_python.transformations import translation
 
 
-class TestPattern(Pattern):
+class MockPattern(Pattern):
     pass
 
 
 def test_the_default_pattern_transformation():
     # Given
-    pattern = TestPattern()
+    pattern = MockPattern()
     # Then
     assert pattern.transform == identity_matrix()
 
 
 def test_assigning_a_transformation():
     # Given
-    pattern = TestPattern()
+    pattern = MockPattern()
     # When
     pattern.transform = translation(1, 2, 3)
     # Then
