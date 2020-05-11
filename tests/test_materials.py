@@ -133,3 +133,10 @@ def test_lighting_with_a_pattern_applied():
     # Then
     assert c1 == Color(1, 1, 1)
     assert c2 == Color(0, 0, 0)
+
+
+def test_reflectivity_for_the_default_material():
+    # Given
+    m = Material()
+    # Then
+    assert m.reflective == 0.0
