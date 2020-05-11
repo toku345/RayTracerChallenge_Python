@@ -86,11 +86,20 @@ class Tuple:
     def __neg__(self):
         return Tuple(-self.x, -self.y, -self.z, -self.w)
 
-    def __mul__(self, scalar):
-        return Tuple(self.x * scalar,
-                     self.y * scalar,
-                     self.z * scalar,
-                     self.w * scalar)
+    def __mul__(self, scalar_or_color):
+        if type(scalar_or_color) == Color:
+            return self._hadamard_product(scalar_or_color)
+        else:
+            return Tuple(self.x * scalar_or_color,
+                         self.y * scalar_or_color,
+                         self.z * scalar_or_color,
+                         self.w * scalar_or_color)
+
+    def _hadamard_product(self, other):
+        r = self.x * other.x
+        g = self.y * other.y
+        b = self.z * other.z
+        return Color(r, g, b)
 
     def __truediv__(self, scalar):
         return Tuple(self.x / scalar,
@@ -115,15 +124,3 @@ class Color(Tuple):
         self.green = green
         self.blue = blue
         super().__init__(red, green, blue, 0)
-
-    def __mul__(self, scalar_or_color):
-        if type(scalar_or_color) == Color:
-            return self._hadamard_product(scalar_or_color)
-        else:
-            return super().__mul__(scalar_or_color)
-
-    def _hadamard_product(self, other):
-        r = self.red * other.red
-        g = self.green * other.green
-        b = self.blue * other.blue
-        return Color(r, g, b)

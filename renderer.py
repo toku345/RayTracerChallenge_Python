@@ -8,12 +8,19 @@ from raytracerchallenge_python.world import World
 from raytracerchallenge_python.point_light import PointLight
 from raytracerchallenge_python.transformations import (
     scaling, view_transform, translation)
-from raytracerchallenge_python.stripe_pattern import StripePattern
+# from raytracerchallenge_python.stripe_pattern import StripePattern
+# from raytracerchallenge_python.checkers_pattern import CheckersPattern
+from raytracerchallenge_python.gradient_pattern import GradientPattern
+# from raytracerchallenge_python.ring_pattern import RingPattern
 
 from math import pi
 
 if __name__ == "__main__":
-    pattern = StripePattern(Color(1, 0, 0), Color(1, 1, 1))
+    # pattern = StripePattern(Color(1, 0, 0), Color(1, 1, 1))
+    # pattern = CheckersPattern(Color(1, 0, 0), Color(1, 1, 1))
+    pattern = GradientPattern(Color(1, 0, 0), Color(1, 1, 1))
+    # pattern = RingPattern(Color(1, 0, 0), Color(1, 1, 1))
+    pattern.transform = scaling(0.2, 0.2, 0.2)
 
     floor = Plane()
     floor.material = Material()
