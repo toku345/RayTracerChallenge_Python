@@ -3,8 +3,11 @@ from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
 from raytracerchallenge_python.transformations import translation
+from raytracerchallenge_python.plane import Plane
 
 from raytracerchallenge_python.helpers import EPSILON
+
+from math import sqrt
 
 
 def test_an_intersection_encapsulates_t_and_object():
@@ -131,3 +134,14 @@ def test_the_hit_should_offset_the_point():
     # Then
     assert comps.over_point.z < -EPSILON / 2
     assert comps.point.z > comps.over_point.z
+
+
+def precomputing_the_reflection_vector():
+    # Given
+    shape = Plane()
+    r = Ray(Point(0, 1, -1), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    # When
+    comps = i.prepare_computations(r)
+    # Then
+    assert comps.reflectv == Vector(0, sqrt(2) / 2, sqrt(2) / 2)

@@ -24,6 +24,7 @@ class Computations:
         if normalv.dot(self.eyev) < 0:
             self.inside = True
             self.normalv = -normalv
+            self.reflectv = (-eyev).reflect(self.normalv)
         else:
             self.inside = False
             self.normalv = normalv
