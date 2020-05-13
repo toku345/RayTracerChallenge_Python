@@ -165,3 +165,17 @@ def test__shade_hit__is_given_an_intersection_in_shadow():
     c = w.shade_hit(comps)
     # Then
     assert c == Color(0.1, 0.1, 0.1)
+
+
+def test_the_reflected_color_for_a_nonreflective_material():
+    # Given
+    w = default_world()
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = Sphere()
+    shape.material.ambient = 1
+    i = Intersection(1, shape)
+    # When
+    comps = i.prepare_computations(r)
+    color = w.reflected_color(comps)
+    # Then
+    assert color == Color(0, 0, 0)  # black

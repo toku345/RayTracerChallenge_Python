@@ -52,6 +52,10 @@ class World:
         else:
             return False
 
+    def reflected_color(self, comps):
+        # if comps.object.material.reflective == 0:
+        return Color(0, 0, 0)
+
 
 def default_world():
     light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))
