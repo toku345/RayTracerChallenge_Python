@@ -53,8 +53,12 @@ class World:
             return False
 
     def reflected_color(self, comps):
-        # if comps.object.material.reflective == 0:
-        return Color(0, 0, 0)
+        if comps.object.material.reflective == 0:
+            return Color(0, 0, 0)
+        reflect_ray = Ray(comps.over_point, comps.reflectv)
+        color = self.color_at(reflect_ray)
+
+        return color * comps.object.material.reflective
 
 
 def default_world():

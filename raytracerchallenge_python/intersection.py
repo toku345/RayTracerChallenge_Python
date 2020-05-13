@@ -24,7 +24,6 @@ class Computations:
         if normalv.dot(self.eyev) < 0:
             self.inside = True
             self.normalv = -normalv
-            self.reflectv = (-eyev).reflect(self.normalv)
         else:
             self.inside = False
             self.normalv = normalv
@@ -32,6 +31,8 @@ class Computations:
         # after computing and (if appropriate) negating
         # the normal vector...
         self.over_point = self.point + self.normalv * EPSILON
+
+        self.reflectv = (-eyev).reflect(self.normalv)
 
 
 class Intersections:
