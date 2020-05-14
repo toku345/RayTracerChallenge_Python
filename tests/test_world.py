@@ -235,3 +235,19 @@ def test__color_at__with_mutually_reflective_surfaces():
         w.color_at(r)
     except RecursionError:
         pytest.fail("Unexpected RecursionError ...")
+
+
+def test_the_reflected_color_at_the_maximum_recursive_depth():
+    # Given
+    w = default_world()
+    shape = Plane()
+    shape.material.reflective = 0.5
+    shape.transform = translation(0, -1, 0)
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    # When
+    comps = i.prepare_computations(r)
+    color = w.reflected_color(comps, 0)
+    # Then
+    assert color == Color(0, 0, 0)
