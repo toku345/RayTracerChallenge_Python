@@ -197,3 +197,19 @@ def test_the_reflected_color_for_a_reflective_material():
     color = w.reflected_color(comps)
     # Then
     assert color == Color(0.19033, 0.23791, 0.14274)
+
+
+def test__shade_hit__with_a_reflective_material():
+    # Given
+    w = default_world()
+    shape = Plane()
+    shape.material.reflective = 0.5
+    shape.transform = translation(0, -1, 0)
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    # When
+    comps = i.prepare_computations(r)
+    color = w.shade_hit(comps)
+    # Then
+    assert color == Color(0.87675, 0.92434, 0.82918)
