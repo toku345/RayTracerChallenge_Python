@@ -9,6 +9,8 @@ from raytracerchallenge_python.intersection import Intersection
 
 from math import sqrt
 
+import pytest
+
 
 def test_createing_a_world():
     # Given
@@ -213,3 +215,23 @@ def test__shade_hit__with_a_reflective_material():
     color = w.shade_hit(comps)
     # Then
     assert color == Color(0.87675, 0.92434, 0.82918)
+
+
+def test__color_at__with_mutually_reflective_surfaces():
+    # Given
+    w = World()
+    w.light = PointLight(Point(0, 0, 0), Color(1, 1, 1))
+    lower = Plane()
+    lower.material.reflective = 1
+    lower.transform = translation(0, -1, 0)
+    w.objects.append(lower)
+    upper = Plane()
+    upper.material.reflective = 1
+    upper.transform = translation(0, 1, 0)
+    w.objects.append(upper)
+    r = Ray(Point(0, 0, 0), Vector(0, 1, 0))
+    # Then
+    try:
+        w.color_at(r)
+    except RecursionError:
+        pytest.fail("Unexpected RecursionError ...")
