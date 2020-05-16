@@ -6,11 +6,34 @@ class Intersection:
         self.t = t
         self.object = object
 
-    def prepare_computations(self, ray):
-        return Computations(t=self.t,
-                            object=self.object,
-                            point=ray.position(self.t),
-                            eyev=-ray.direction)
+    def prepare_computations(self, ray, xs=[]):
+        comps = Computations(t=self.t,
+                             object=self.object,
+                             point=ray.position(self.t),
+                             eyev=-ray.direction)
+
+        containers = []
+        for i in xs:
+            if i == self:
+                if len(containers) < 1:
+                    comps.n1 = 1.0
+                else:
+                    comps.n1 = containers[-1].material.refractive_index
+
+            if i.object in containers:
+                containers.remove(i.object)
+            else:
+                containers.append(i.object)
+
+            if i == self:
+                if len(containers) < 1:
+                    comps.n2 = 1.0
+                else:
+                    comps.n2 = containers[-1].material.refractive_index
+
+                break
+
+        return comps
 
 
 class Computations:

@@ -4,6 +4,8 @@ from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
 from raytracerchallenge_python.transformations import translation
 from raytracerchallenge_python.plane import Plane
+from raytracerchallenge_python.sphere import glass_sphere
+from raytracerchallenge_python.transformations import scaling, translation
 
 from raytracerchallenge_python.helpers import EPSILON
 
@@ -145,3 +147,40 @@ def precomputing_the_reflection_vector():
     comps = i.prepare_computations(r)
     # Then
     assert comps.reflectv == Vector(0, sqrt(2) / 2, sqrt(2) / 2)
+
+
+def test_finding_n1_and_n2_at_various_intersections():
+    # Given
+    A = glass_sphere()
+    A.transform = scaling(2, 2, 2)
+    A.material.refractive_index = 1.5
+
+    B = glass_sphere()
+    B.transform = translation(0, 0, -0.25)
+    B.material.refractive_index = 2.0
+
+    C = glass_sphere()
+    C.transform = translation(0, 0, 0.25)
+    C.material.refractive_index = 2.5
+
+    r = Ray(Point(0, 0, -4), Vector(0, 0, 1))
+    xs = Intersections(Intersection(2, A),
+                       Intersection(2.75, B),
+                       Intersection(3.25, C),
+                       Intersection(4.75, B),
+                       Intersection(5.25, C),
+                       Intersection(6, A))
+    EXAMPLES = [
+        {'n1': 1.0, 'n2': 1.5},  # index: 0
+        {'n1': 1.5, 'n2': 2.0},  # index: 1
+        {'n1': 2.0, 'n2': 2.5},  # index: 2
+        {'n1': 2.5, 'n2': 2.5},  # index: 3
+        {'n1': 2.5, 'n2': 1.5},  # index: 4
+        {'n1': 1.5, 'n2': 1.0},  # index: 5
+    ]
+    for index in range(len(EXAMPLES)):
+        # When
+        comps = xs[index].prepare_computations(r, xs=xs)
+        # Then
+        assert comps.n1 == EXAMPLES[index]['n1']
+        assert comps.n2 == EXAMPLES[index]['n2']
