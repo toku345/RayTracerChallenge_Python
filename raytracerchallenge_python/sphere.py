@@ -30,3 +30,10 @@ class Sphere(Shape):
 
     def local_normal_at(self, local_point):
         return local_point - Point(0, 0, 0)
+
+
+def glass_sphere():
+    s = Sphere()
+    s.material.transparency = 1.0
+    s.material.refractive_index = 1.5
+    return s

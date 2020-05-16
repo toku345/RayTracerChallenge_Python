@@ -140,3 +140,11 @@ def test_reflectivity_for_the_default_material():
     m = Material()
     # Then
     assert m.reflective == 0.0
+
+
+def test_transparency_and_refractive_index_for_the_default_material():
+    # Given
+    m = Material()
+    # Then
+    assert m.transparency == 0.0
+    assert m.refractive_index == 1.0

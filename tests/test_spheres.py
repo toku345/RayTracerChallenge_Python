@@ -1,9 +1,10 @@
-from raytracerchallenge_python.sphere import Sphere
+from raytracerchallenge_python.sphere import Sphere, glass_sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
 from raytracerchallenge_python.transformations import (
     translation, scaling, rotation_z)
 from math import pi, sqrt
+from raytracerchallenge_python.matrix import identity_matrix
 
 
 def test_a_ray_intersects_a_sphere_at_two_points():
@@ -164,3 +165,12 @@ def test_commputing_the_normal_on_a_transformed_sphere():
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     # Then
     assert n == Vector(0, 0.97014, -0.24254)
+
+
+def test_a_helper_for_producing_a_sphere_with_a_glassy_material():
+    # Given
+    s = glass_sphere()
+    # Then
+    assert s.transform == identity_matrix()
+    assert s.material.transparency == 1.0
+    assert s.material.refractive_index == 1.5
