@@ -5,7 +5,7 @@ from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.plane import Plane
 from raytracerchallenge_python.transformations import scaling, translation
 from raytracerchallenge_python.ray import Ray
-from raytracerchallenge_python.intersection import Intersection
+from raytracerchallenge_python.intersection import Intersection, Intersections
 
 from math import sqrt
 
@@ -251,3 +251,16 @@ def test_the_reflected_color_at_the_maximum_recursive_depth():
     color = w.reflected_color(comps, 0)
     # Then
     assert color == Color(0, 0, 0)
+
+
+def test_the_refracted_color_with_an_opaque_surface():
+    # Given
+    w = default_world()
+    shape = w.objects[0]
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    xs = Intersections(Intersection(4, shape), Intersection(6, shape))
+    # When
+    comps = xs[0].prepare_computations(r, xs)
+    c = w.refracted_color(comps, 5)
+    # Then
+    assert c == Color(0, 0, 0)

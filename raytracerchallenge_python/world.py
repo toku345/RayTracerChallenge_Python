@@ -63,6 +63,11 @@ class World:
 
         return color * comps.object.material.reflective
 
+    def refracted_color(self, comps, remaining):
+        # if comps.object.material.transparency == 0:
+        return Color(0, 0, 0)
+        # return Color(1, 1, 1)
+
 
 def default_world():
     light = PointLight(Point(-10, 10, -10), Color(1, 1, 1))
