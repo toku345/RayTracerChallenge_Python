@@ -6,7 +6,7 @@ from raytracerchallenge_python.plane import Plane
 from raytracerchallenge_python.sphere import glass_sphere
 from raytracerchallenge_python.transformations import scaling, translation
 
-from raytracerchallenge_python.helpers import EPSILON
+from raytracerchallenge_python.helpers import EPSILON, equal
 
 from math import sqrt
 
@@ -221,4 +221,16 @@ def test_the_schlick_approximation_with_a_perpendicular_viewing_angle():
     comps = xs[1].prepare_computations(r, xs)
     reflectance = comps.schlick()
     # Then
-    assert reflectance == 0.04
+    assert equal(reflectance, 0.04)
+
+
+def test_the_schlick_approximation_with_small_angle_and_n2_greater_than_n1():
+    # Given
+    shape = glass_sphere()
+    r = Ray(Point(0, 0.99, -2), Vector(0, 0, 1))
+    xs = Intersections(Intersection(1.8589, shape))
+    # When
+    comps = xs[0].prepare_computations(r, xs)
+    reflectance = comps.schlick()
+    # Then
+    assert equal(reflectance, 0.48873)

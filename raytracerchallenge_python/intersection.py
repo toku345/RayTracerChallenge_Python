@@ -1,5 +1,7 @@
 from raytracerchallenge_python.helpers import EPSILON
 
+from math import sqrt
+
 
 class Intersection:
     def __init__(self, t, object):
@@ -64,7 +66,12 @@ class Computations:
             sin2_t = n ** 2 * (1.0 - cos ** 2)
             if sin2_t > 1.0:
                 return 1.0
-        return 0.0
+
+            cos_t = sqrt(1.0 - sin2_t)
+            cos = cos_t
+
+        r0 = ((self.n1 - self.n2) / (self.n1 + self.n2)) ** 2
+        return r0 + (1 - r0) * (1 - cos) ** 5
 
 
 class Intersections:
