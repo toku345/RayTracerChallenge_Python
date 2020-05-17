@@ -2,7 +2,6 @@ from raytracerchallenge_python.intersection import Intersection, Intersections
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
-from raytracerchallenge_python.transformations import translation
 from raytracerchallenge_python.plane import Plane
 from raytracerchallenge_python.sphere import glass_sphere
 from raytracerchallenge_python.transformations import scaling, translation
@@ -184,3 +183,17 @@ def test_finding_n1_and_n2_at_various_intersections():
         # Then
         assert comps.n1 == EXAMPLES[index]['n1']
         assert comps.n2 == EXAMPLES[index]['n2']
+
+
+def test_the_under_point_is_offset_below_the_surface():
+    # Given
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = glass_sphere()
+    shape.transform = translation(0, 0, 1)
+    i = Intersection(5, shape)
+    xs = Intersections(i)
+    # When
+    comps = i.prepare_computations(r, xs)
+    # Then
+    assert comps.under_point.z > EPSILON / 2
+    assert comps.point.z < comps.under_point.z

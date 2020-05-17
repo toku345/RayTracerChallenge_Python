@@ -51,9 +51,8 @@ class Computations:
             self.inside = False
             self.normalv = normalv
 
-        # after computing and (if appropriate) negating
-        # the normal vector...
         self.over_point = self.point + self.normalv * EPSILON
+        self.under_point = self.point - self.normalv * EPSILON
 
         self.reflectv = (-eyev).reflect(self.normalv)
 
