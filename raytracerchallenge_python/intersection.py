@@ -56,6 +56,16 @@ class Computations:
 
         self.reflectv = (-eyev).reflect(self.normalv)
 
+    def schlick(self):
+        cos = self.eyev.dot(self.normalv)
+
+        if self.n1 > self.n2:
+            n = self.n1 / self.n2
+            sin2_t = n ** 2 * (1.0 - cos ** 2)
+            if sin2_t > 1.0:
+                return 1.0
+        return 0.0
+
 
 class Intersections:
     def __init__(self, *intersections):

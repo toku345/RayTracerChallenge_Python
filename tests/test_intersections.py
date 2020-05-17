@@ -197,3 +197,16 @@ def test_the_under_point_is_offset_below_the_surface():
     # Then
     assert comps.under_point.z > EPSILON / 2
     assert comps.point.z < comps.under_point.z
+
+
+def test_the_schlick_approximation_under_total_internal_reflection():
+    # Given
+    shape = glass_sphere()
+    r = Ray(Point(0, 0, sqrt(2) / 2), Vector(0, 1, 0))
+    xs = Intersections(Intersection(-sqrt(2) / 2, shape),
+                       Intersection(sqrt(2) / 2, shape))
+    # When
+    comps = xs[1].prepare_computations(r, xs)
+    reflectance = comps.schlick()
+    # Then
+    assert reflectance == 1.0
