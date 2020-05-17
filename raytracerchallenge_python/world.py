@@ -5,6 +5,8 @@ from raytracerchallenge_python.transformations import scaling
 from raytracerchallenge_python.intersection import Intersections
 from raytracerchallenge_python.ray import Ray
 
+from math import sqrt
+
 
 class World:
     def __init__(self):
@@ -73,7 +75,14 @@ class World:
         if sin2_t > 1:
             return Color(0, 0, 0)
 
-        return Color(1, 1, 1)
+        cos_t = sqrt(1.0 - sin2_t)
+        direction = comps.normalv * \
+            (n_ratio * cos_i - cos_t) - comps.eyev * n_ratio
+
+        refracted_ray = Ray(comps.under_point, direction)
+        color = self.color_at(refracted_ray, remaining - 1)
+
+        return color * comps.object.material.transparency
 
 
 def default_world():

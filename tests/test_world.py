@@ -6,6 +6,7 @@ from raytracerchallenge_python.plane import Plane
 from raytracerchallenge_python.transformations import scaling, translation
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.intersection import Intersection, Intersections
+from raytracerchallenge_python.pattern import Pattern
 
 from math import sqrt
 
@@ -298,3 +299,32 @@ def test_the_refracted_color_under_total_internal_reflection():
     c = w.refracted_color(comps, 5)
     # Then
     assert c == Color(0, 0, 0)
+
+
+class MockPattern(Pattern):
+    def pattern_at(self, point):
+        return Color(point.x, point.y, point.z)
+
+
+def test_refracted_color_with_a_refracted_ray():
+    # Then
+    w = default_world()
+
+    A = w.objects[0]
+    A.material.ambient = 1.0
+    A.material.pattern = MockPattern()
+
+    B = w.objects[1]
+    B.material.transparency = 1.0
+    B.material.refractive_index = 1.5
+
+    r = Ray(Point(0, 0, 0.1), Vector(0, 1, 0))
+    xs = Intersections(Intersection(-0.9899, A),
+                       Intersection(-0.4899, B),
+                       Intersection(0.4899, B),
+                       Intersection(0.9899, A))
+    # When
+    comps = xs[2].prepare_computations(r, xs)
+    c = w.refracted_color(comps, 5)
+    # Then
+    assert c == Color(0, 0.99887, 0.04721)
