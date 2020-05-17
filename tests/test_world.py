@@ -279,3 +279,22 @@ def test_the_refracted_color_at_the_maximum_recursive_depth():
     c = w.refracted_color(comps, 0)
     # Then
     assert c == Color(0, 0, 0)
+
+
+def test_the_refracted_color_under_total_internal_reflection():
+    # Given
+    w = default_world()
+    shape = w.objects[0]
+    shape.material.transparency = 1.0
+    shape.material.refractive_index = 1.5
+    r = Ray(Point(0, 0, sqrt(2) / 2), Vector(0, 1, 0))
+    xs = Intersections(Intersection(-sqrt(2) / 2, shape),
+                       Intersection(sqrt(2) / 2, shape))
+    # When
+
+    # NOTE: this time you're inside the sphere, so you need
+    # to look at the second intersection, xs[1], not xs[0]
+    comps = xs[1].prepare_computations(r, xs)
+    c = w.refracted_color(comps, 5)
+    # Then
+    assert c == Color(0, 0, 0)

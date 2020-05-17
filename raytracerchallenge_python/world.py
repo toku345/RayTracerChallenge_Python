@@ -66,7 +66,14 @@ class World:
     def refracted_color(self, comps, remaining):
         if remaining == 0 or comps.object.material.transparency == 0:
             return Color(0, 0, 0)
-        # return Color(1, 1, 1)
+
+        n_ratio = comps.n1 / comps.n2
+        cos_i = comps.eyev.dot(comps.normalv)
+        sin2_t = n_ratio ** 2 * (1 - cos_i ** 2)
+        if sin2_t > 1:
+            return Color(0, 0, 0)
+
+        return Color(1, 1, 1)
 
 
 def default_world():
