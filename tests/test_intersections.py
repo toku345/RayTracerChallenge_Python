@@ -210,3 +210,15 @@ def test_the_schlick_approximation_under_total_internal_reflection():
     reflectance = comps.schlick()
     # Then
     assert reflectance == 1.0
+
+
+def test_the_schlick_approximation_with_a_perpendicular_viewing_angle():
+    # Given
+    shape = glass_sphere()
+    r = Ray(Point(0, 0, 0), Vector(0, 1, 0))
+    xs = Intersections(Intersection(-1, shape), Intersection(1, shape))
+    # When
+    comps = xs[1].prepare_computations(r, xs)
+    reflectance = comps.schlick()
+    # Then
+    assert reflectance == 0.04
