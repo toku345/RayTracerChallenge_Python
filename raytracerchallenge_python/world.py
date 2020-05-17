@@ -64,8 +64,8 @@ class World:
         return color * comps.object.material.reflective
 
     def refracted_color(self, comps, remaining):
-        # if comps.object.material.transparency == 0:
-        return Color(0, 0, 0)
+        if remaining == 0 or comps.object.material.transparency == 0:
+            return Color(0, 0, 0)
         # return Color(1, 1, 1)
 
 

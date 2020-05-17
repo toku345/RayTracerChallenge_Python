@@ -264,3 +264,18 @@ def test_the_refracted_color_with_an_opaque_surface():
     c = w.refracted_color(comps, 5)
     # Then
     assert c == Color(0, 0, 0)
+
+
+def test_the_refracted_color_at_the_maximum_recursive_depth():
+    # Given
+    w = default_world()
+    shape = w.objects[0]
+    shape.material.transparency = 1.0
+    shape.material.refractive_index = 1.5
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    xs = Intersections(Intersection(4, shape), Intersection(6, shape))
+    # When
+    comps = xs[0].prepare_computations(r, xs)
+    c = w.refracted_color(comps, 0)
+    # Then
+    assert c == Color(0, 0, 0)
