@@ -20,7 +20,9 @@ class Material:
                     self.diffuse == other.diffuse,
                     self.specular == other.specular,
                     self.shininess == other.shininess,
-                    self.pattern == other.pattern])
+                    self.pattern == other.pattern,
+                    self.transparency == other.transparency,
+                    self.refractive_index == other.refractive_index])
 
     def lighting(self, object, light, point, eyev, normalv, in_shadow=False):
         if self.pattern:
