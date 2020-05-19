@@ -47,7 +47,7 @@ class World:
         if not hit:
             return Color(0, 0, 0)
 
-        comps = hit.prepare_computations(ray)
+        comps = hit.prepare_computations(ray, xs)
         return self.shade_hit(comps, remaining)
 
     def is_shadowed(self, point):
