@@ -1,5 +1,6 @@
 from raytracerchallenge_python.shape import Shape
 from raytracerchallenge_python.intersection import Intersection
+from raytracerchallenge_python.tuple import Vector
 
 from raytracerchallenge_python.helpers import EPSILON
 
@@ -7,7 +8,14 @@ from raytracerchallenge_python.helpers import EPSILON
 class Cube(Shape):
 
     def local_normal_at(self, point):
-        """ pass """
+        maxc = max(abs(point.x), abs(point.y), abs(point.z))
+
+        if maxc == abs(point.x):
+            return Vector(point.x, 0, 0)
+        elif maxc == abs(point.y):
+            return Vector(0, point.y, 0)
+        else:
+            return Vector(0, 0, point.z)
 
     def local_intersect(self, ray):
         def check_axis(origin, direction):

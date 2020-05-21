@@ -44,3 +44,25 @@ def test_a_ray_misses_a_cube():
         xs = c.local_intersect(r)
         # Then
         assert len(xs) == 0
+
+
+def test_the_normal_on_the_surface_of_a_cube():
+    EXAMPLES = [
+        # point,               normal
+        (Point(1, 0.5, -0.8),  Vector(1, 0, 0)),
+        (Point(-1, -0.2, 0.9), Vector(-1, 0, 0)),
+        (Point(-0.4, 1, -0.1), Vector(0, 1, 0)),
+        (Point(0.3, -1, -0.7), Vector(0, -1, 0)),
+        (Point(-0.6, 0.3, 1),  Vector(0, 0, 1)),
+        (Point(0.4, 0.4, -1),  Vector(0, 0, -1)),
+        (Point(1, 1, 1),       Vector(1, 0, 0)),
+        (Point(-1, -1, -1),    Vector(-1, 0, 0)),
+    ]
+    for point, normal in EXAMPLES:
+        # Given
+        c = Cube()
+        p = point
+        # When
+        n = c.local_normal_at(p)
+        # Then
+        assert normal == n
