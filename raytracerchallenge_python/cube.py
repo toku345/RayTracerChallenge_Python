@@ -33,4 +33,7 @@ class Cube(Shape):
         tmin = max(xtmin, ytmin, ztmin)
         tmax = min(xtmax, ytmax, ztmax)
 
-        return (Intersection(tmin, self), Intersection(tmax, self))
+        if tmin > tmax:
+            return ()
+        else:
+            return (Intersection(tmin, self), Intersection(tmax, self))
