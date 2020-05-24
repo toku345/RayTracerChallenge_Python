@@ -1,7 +1,9 @@
 from raytracerchallenge_python.shape import Shape
-from raytracerchallenge_python.intersection import Intersection
+from raytracerchallenge_python.intersection import Intersection, Intersections
 
 from raytracerchallenge_python.helpers import EPSILON
+
+from math import sqrt
 
 
 class Cylinder(Shape):
@@ -21,7 +23,10 @@ class Cylinder(Shape):
         if disc < 0:
             return ()
 
-        return (Intersection(1, self),)
+        t0 = (-b - sqrt(disc)) / (2 * a)
+        t1 = (-b + sqrt(disc)) / (2 * a)
+
+        return Intersections(Intersection(t0, self), Intersection(t1, self))
 
     def local_normal_at(self, point):
         """ not implemented """
