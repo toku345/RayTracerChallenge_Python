@@ -8,6 +8,11 @@ from math import sqrt
 
 
 class Cylinder(Shape):
+    def __init__(self):
+        super().__init__()
+        self.minimum = -float('inf')
+        self.maximum = float('inf')
+
     def local_intersect(self, ray):
         a = ray.direction.x ** 2 + ray.direction.z ** 2
 

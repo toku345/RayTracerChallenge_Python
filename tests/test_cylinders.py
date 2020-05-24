@@ -58,3 +58,11 @@ def test_normal_vector_on_a_cylinder():
         n = cyl.local_normal_at(point)
         # Then
         assert n == normal
+
+
+def test_the_default_minimum_and_maximum_for_a_cylinder():
+    # Given
+    cyl = Cylinder()
+    # Then
+    assert cyl.minimum == -float('inf')
+    assert cyl.maximum == float('inf')
