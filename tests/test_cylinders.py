@@ -41,3 +41,20 @@ def test_a_ray_strikes_a_cylinder():
         assert len(xs) == 2
         assert equal(xs[0].t, t0)
         assert equal(xs[1].t, t1)
+
+
+def test_normal_vector_on_a_cylinder():
+    EXAMPLES = [
+        # point           normal
+        (Point(1, 0, 0),  Vector(1, 0, 0)),
+        (Point(0, 5, -1), Vector(0, 0, -1)),
+        (Point(0, -2, 1), Vector(0, 0, 1)),
+        (Point(-1, 1, 0), Vector(-1, 0, 0)),
+    ]
+    for point, normal in EXAMPLES:
+        # Given
+        cyl = Cylinder()
+        # When
+        n = cyl.local_normal_at(point)
+        # Then
+        assert n == normal
