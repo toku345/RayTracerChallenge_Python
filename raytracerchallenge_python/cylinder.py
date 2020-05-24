@@ -12,6 +12,7 @@ class Cylinder(Shape):
         super().__init__()
         self.minimum = -float('inf')
         self.maximum = float('inf')
+        self.closed = False
 
     def local_intersect(self, ray):
         a = ray.direction.x ** 2 + ray.direction.z ** 2

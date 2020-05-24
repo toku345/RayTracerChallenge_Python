@@ -90,3 +90,10 @@ def test_intersecting_a_constrained_cylinder():
         xs = cyl.local_intersect(r)
         # Then
         assert len(xs) == count
+
+
+def test_the_default_closed_value_for_a_cylinder():
+    # Given
+    cyl = Cylinder()
+    # Then
+    assert cyl.closed is False
