@@ -66,3 +66,27 @@ def test_the_default_minimum_and_maximum_for_a_cylinder():
     # Then
     assert cyl.minimum == -float('inf')
     assert cyl.maximum == float('inf')
+
+
+def test_intersecting_a_constrained_cylinder():
+    EXAMPLES = [
+        # point             direction          count
+        (Point(0, 1.5, 0),  Vector(0.1, 1, 0), 0),
+        (Point(0, 3, -5),   Vector(0, 0, 1),   0),
+        (Point(0, 0, -5),   Vector(0, 0, 1),   0),
+        (Point(0, 2, -5),   Vector(0, 0, 1),   0),
+        (Point(0, 1, -5),   Vector(0, 0, 1),   0),
+        (Point(0, 1.5, -2), Vector(0, 0, 1),   2),
+        (Point(0, 1.5, 2),  Vector(0, 0, -1),  2),
+    ]
+    for point, direction, count in EXAMPLES:
+        # Given
+        cyl = Cylinder()
+        cyl.minimum = 1
+        cyl.maximum = 2
+        dir = direction.normalize()
+        r = Ray(point, dir)
+        # When
+        xs = cyl.local_intersect(r)
+        # Then
+        assert len(xs) == count
