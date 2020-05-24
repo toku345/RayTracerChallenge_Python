@@ -1,5 +1,5 @@
 from raytracerchallenge_python.shape import Shape
-from raytracerchallenge_python.intersection import Intersection
+from raytracerchallenge_python.intersection import Intersection, Intersections
 from raytracerchallenge_python.tuple import Vector
 
 from raytracerchallenge_python.helpers import EPSILON
@@ -42,6 +42,7 @@ class Cube(Shape):
         tmax = min(xtmax, ytmax, ztmax)
 
         if tmin > tmax:
-            return ()
+            return Intersections()
         else:
-            return (Intersection(tmin, self), Intersection(tmax, self))
+            return Intersections(Intersection(tmin, self),
+                                 Intersection(tmax, self))
