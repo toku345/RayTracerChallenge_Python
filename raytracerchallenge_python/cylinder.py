@@ -19,7 +19,8 @@ class Cylinder(Shape):
 
         # ray is parallel to the y axis
         if abs(a) < EPSILON:
-            return ()
+            xs = self._intersect_caps(ray)
+            return Intersections(*xs)
 
         b = 2 * ray.origin.x * ray.direction.x + \
             2 * ray.origin.z * ray.direction.z
@@ -46,7 +47,30 @@ class Cylinder(Shape):
         if self.minimum < y1 and y1 < self.maximum:
             xs.append(Intersection(t1, self))
 
+        xs = xs + self._intersect_caps(ray)
+
         return Intersections(*xs)
 
     def local_normal_at(self, point):
         return Vector(point.x, 0, point.z)
+
+    def _intersect_caps(self, ray):
+        def check_cap(ray, t):
+            x = ray.origin.x + t * ray.direction.x
+            z = ray.origin.z + t * ray.direction.z
+            return (x ** 2 + z ** 2) <= 1
+
+        xs = []
+
+        if self.closed is False or abs(ray.direction.y) < EPSILON:
+            return xs
+
+        t = (self.minimum - ray.origin.y) / ray.direction.y
+        if check_cap(ray, t):
+            xs.append(Intersection(t, self))
+
+        t = (self.maximum - ray.origin.y) / ray.direction.y
+        if check_cap(ray, t):
+            xs.append(Intersection(t, self))
+
+        return xs

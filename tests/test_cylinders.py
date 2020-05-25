@@ -97,3 +97,26 @@ def test_the_default_closed_value_for_a_cylinder():
     cyl = Cylinder()
     # Then
     assert cyl.closed is False
+
+
+def test_intersecting_the_caps_of_a_closed_cylinder():
+    EXAMPLES = [
+        # point           direction         count
+        (Point(0, 3, 0),   Vector(0, -1, 0), 2),
+        (Point(0, 3, -2),  Vector(0, -1, 2), 2),
+        (Point(0, 4, -2),  Vector(0, -1, 1), 2),  # corner case
+        (Point(0, 0, -2),  Vector(0, 1, 2),  2),
+        (Point(0, -1, -2), Vector(0, 1, 1),  2),  # corner case
+    ]
+    for point, direction, count in EXAMPLES:
+        # Given
+        cyl = Cylinder()
+        cyl.minimum = 1
+        cyl.maximum = 2
+        cyl.closed = True
+        dir = direction.normalize()
+        r = Ray(point, dir)
+        # When
+        xs = cyl.local_intersect(r)
+        # Then
+        assert len(xs) == count
