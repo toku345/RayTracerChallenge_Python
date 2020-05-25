@@ -51,9 +51,6 @@ class Cylinder(Shape):
 
         return Intersections(*xs)
 
-    def local_normal_at(self, point):
-        return Vector(point.x, 0, point.z)
-
     def _intersect_caps(self, ray):
         def check_cap(ray, t):
             x = ray.origin.x + t * ray.direction.x
@@ -74,3 +71,13 @@ class Cylinder(Shape):
             xs.append(Intersection(t, self))
 
         return xs
+
+    def local_normal_at(self, point):
+        dist = point.x ** 2 + point.z ** 2
+
+        if dist < 1 and point.y >= self.maximum - EPSILON:
+            return Vector(0, 1, 0)
+        elif dist < 1 and point.y <= self.minimum + EPSILON:
+            return Vector(0, -1, 0)
+        else:
+            return Vector(point.x, 0, point.z)
