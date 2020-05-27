@@ -35,3 +35,14 @@ def test_intersecting_a_cone_with_a_ray_parallel_to_one_of_its_halves():
     # Then
     assert len(xs) == 1
     assert equal(xs[0].t, 0.35355)
+
+
+def test_a_ray_misses_a_cone():
+    # Given
+    shape = Cone()
+    direction = Vector(1, 1, 0).normalize()
+    r = Ray(Point(1, 1, 0), direction)
+    # When
+    xs = shape.local_intersect(r)
+    # Then
+    assert len(xs) == 0
