@@ -46,3 +46,39 @@ def test_a_ray_misses_a_cone():
     xs = shape.local_intersect(r)
     # Then
     assert len(xs) == 0
+
+
+def test_the_default_minimum_and_maximum_for_a_cone():
+    # Given
+    shape = Cone()
+    # Then
+    assert shape.minimum == -float('inf')
+    assert shape.maximum == float('inf')
+
+
+def test_the_default_closed_value_for_a_cone():
+    # Given
+    shape = Cone()
+    # Then
+    assert shape.closed is False
+
+
+def test_intersecting_a_cone_end_caps():
+    EXAMPLES = [
+        # origin             direction        count
+        (Point(0, 0, -5),    Vector(0, 1, 0), 0),
+        (Point(0, 0, -0.25), Vector(0, 1, 1), 2),
+        (Point(0, 0, -0.25), Vector(0, 1, 0), 4),
+    ]
+    for origin, direction, count in EXAMPLES:
+        # Given
+        shape = Cone()
+        shape.minimum = -0.5
+        shape.maximum = 0.5
+        shape.closed = True
+        dir = direction.normalize()
+        r = Ray(origin, dir)
+        # When
+        xs = shape.local_intersect(r)
+        # Then
+        assert len(xs) == count
