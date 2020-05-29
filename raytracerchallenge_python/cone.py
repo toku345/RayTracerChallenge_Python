@@ -1,5 +1,6 @@
 from raytracerchallenge_python.shape import Shape
 from raytracerchallenge_python.intersection import Intersections, Intersection
+from raytracerchallenge_python.tuple import Vector
 
 from raytracerchallenge_python.helpers import EPSILON
 
@@ -68,4 +69,7 @@ class Cone(Shape):
         return xs
 
     def local_normal_at(self, point):
-        """ not implemented """
+        y = sqrt(point.x ** 2 + point.z ** 2)
+        if point.y > 0:
+            y = -y
+        return Vector(point.x, y, point.z)

@@ -4,6 +4,8 @@ from raytracerchallenge_python.ray import Ray
 
 from raytracerchallenge_python.helpers import equal
 
+from math import sqrt
+
 
 def test_intersecting_a_cone_with_a_ray():
     EXAMPLES = [
@@ -82,3 +84,19 @@ def test_intersecting_a_cone_end_caps():
         xs = shape.local_intersect(r)
         # Then
         assert len(xs) == count
+
+
+def test_computing_the_normal_vector_on_a_cone():
+    EXAMPLES = [
+        # point            normal
+        (Point(0, 0, 0),   Vector(0, 0, 0)),
+        (Point(1, 1, 1),   Vector(1, -sqrt(2), 1)),
+        (Point(-1, -1, 0), Vector(-1, 1, 0)),
+    ]
+    for point, normal in EXAMPLES:
+        # Given
+        shape = Cone()
+        # When
+        n = shape.local_normal_at(point)
+        # Then
+        assert n == normal
