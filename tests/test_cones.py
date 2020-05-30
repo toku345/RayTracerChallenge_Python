@@ -40,14 +40,20 @@ def test_intersecting_a_cone_with_a_ray_parallel_to_one_of_its_halves():
 
 
 def test_a_ray_misses_a_cone():
-    # Given
-    shape = Cone()
-    direction = Vector(1, 1, 0).normalize()
-    r = Ray(Point(1, 1, 0), direction)
-    # When
-    xs = shape.local_intersect(r)
-    # Then
-    assert len(xs) == 0
+    EXAMPLES = [
+        # origin          direction
+        (Vector(1, 1, 0), Point(1, 1, 0)),
+        (Vector(0, 1.5, -5), Point(0.574427, 0.183397, 1.023327)),
+    ]
+    for origin, direction in EXAMPLES:
+        # Given
+        shape = Cone()
+        dir = direction.normalize()
+        r = Ray(origin, dir)
+        # When
+        xs = shape.local_intersect(r)
+        # Then
+        assert len(xs) == 0
 
 
 def test_the_default_minimum_and_maximum_for_a_cone():

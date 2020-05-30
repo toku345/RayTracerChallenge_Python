@@ -30,6 +30,9 @@ class Cone(Shape):
                 return Intersections(*xs)
 
         disc = b ** 2 - 4 * a * c
+        if disc < 0:
+            return Intersections()
+
         t0 = (-b - sqrt(disc)) / (2 * a)
         t1 = (-b + sqrt(disc)) / (2 * a)
 
