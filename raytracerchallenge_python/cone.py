@@ -69,6 +69,13 @@ class Cone(Shape):
         return xs
 
     def local_normal_at(self, point):
+        dist = point.x ** 2 + point.z ** 2
+
+        if dist < abs(point.y) and point.y >= self.maximum - EPSILON:
+            return Vector(0, 1, 0)
+        elif dist < abs(point.y) and point.y <= self.minimum + EPSILON:
+            return Vector(0, -1, 0)
+
         y = sqrt(point.x ** 2 + point.z ** 2)
         if point.y > 0:
             y = -y

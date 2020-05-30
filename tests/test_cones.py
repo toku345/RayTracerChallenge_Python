@@ -100,3 +100,25 @@ def test_computing_the_normal_vector_on_a_cone():
         n = shape.local_normal_at(point)
         # Then
         assert n == normal
+
+
+def test_the_normal_vector_on_a_cones_end_caps():
+    EXAMPLES = [
+        # point              normal
+        (Point(0, 1, 0),     Vector(0, 1, 0)),
+        (Point(0.5, 1, 0),   Vector(0, 1, 0)),
+        (Point(0, 1, 0.5),   Vector(0, 1, 0)),
+        (Point(0, -1, 0),    Vector(0, -1, 0)),
+        (Point(-0.5, -1, 0), Vector(0, -1, 0)),
+        (Point(0, -1, 0.5),  Vector(0, -1, 0)),
+    ]
+    for point, normal in EXAMPLES:
+        # Given
+        shape = Cone()
+        shape.minimum = -1
+        shape.maximum = 1
+        shape.closed = True
+        # When
+        n = shape.local_normal_at(point)
+        # Then
+        assert n == normal
