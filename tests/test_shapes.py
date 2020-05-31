@@ -116,3 +116,10 @@ def test_computing_the_normal_on_a_transformed_shape():
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     # Then
     assert n == Vector(0, 0.97014, -0.24254)
+
+
+def test_a_shape_has_a_parent_shape():
+    # Given
+    s = MockShape()
+    # Then
+    assert s.parent is None

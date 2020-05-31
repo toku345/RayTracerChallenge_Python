@@ -8,6 +8,7 @@ class Shape(metaclass=ABCMeta):
     def __init__(self):
         self.transform = identity_matrix()
         self.material = Material()
+        self.parent = None
 
     def intersect(self, ray):
         local_ray = ray.transform(self.transform.inverse())
