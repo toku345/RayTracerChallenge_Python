@@ -4,7 +4,7 @@ from raytracerchallenge_python.shape import Shape
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
-from raytracerchallenge_python.transformations import translation
+from raytracerchallenge_python.transformations import translation, scaling
 
 
 def test_creating_a_new_group():
@@ -65,3 +65,17 @@ def test_intersecting_a_ray_with_a_nonempty_group():
     assert xs[1].object == s2
     assert xs[2].object == s1
     assert xs[3].object == s1
+
+
+def test_intersecting_a_transformed_group():
+    # Given
+    g = Group()
+    g.transform = scaling(2, 2, 2)
+    s = Sphere()
+    s.transform = translation(5, 0, 0)
+    g.add_child(s)
+    # When
+    r = Ray(Point(10, 0, -10), Vector(0, 0, 1))
+    xs = g.intersect(r)
+    # Then
+    assert len(xs) == 2
