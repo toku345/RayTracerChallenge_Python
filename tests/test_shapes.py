@@ -1,7 +1,9 @@
 from raytracerchallenge_python.matrix import identity_matrix
 from raytracerchallenge_python.transformations import (
-    translation, scaling, rotation_z)
+    translation, scaling, rotation_z, rotation_y)
 from raytracerchallenge_python.shape import Shape
+from raytracerchallenge_python.group import Group
+from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.material import Material
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
@@ -123,3 +125,19 @@ def test_a_shape_has_a_parent_shape():
     s = MockShape()
     # Then
     assert s.parent is None
+
+
+def test_converting_a_point_from_world_to_object_space():
+    # Given
+    g1 = Group()
+    g1.transform = rotation_y(pi / 2)
+    g2 = Group()
+    g2.transform = scaling(2, 2, 2)
+    g1.add_child(g2)
+    s = Sphere()
+    s.transform = translation(5, 0, 0)
+    g2.add_child(s)
+    # When
+    p = s.world_to_object(Point(-2, 0, -10))
+    # Then
+    assert p == Point(0, 0, -1)

@@ -28,3 +28,8 @@ class Shape(metaclass=ABCMeta):
     @abstractmethod
     def local_normal_at(self, point):
         """ abstruct method !!! """
+
+    def world_to_object(self, point):
+        if self.parent:
+            point = self.parent.world_to_object(point)
+        return self.transform.inverse() * point

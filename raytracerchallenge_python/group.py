@@ -7,6 +7,7 @@ from functools import reduce
 
 class Group(Shape):
     def __init__(self):
+        super().__init__()
         self.transform = identity_matrix()
         self.children = []
 
