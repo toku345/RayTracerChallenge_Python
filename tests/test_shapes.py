@@ -141,3 +141,19 @@ def test_converting_a_point_from_world_to_object_space():
     p = s.world_to_object(Point(-2, 0, -10))
     # Then
     assert p == Point(0, 0, -1)
+
+
+def test_converting_a_normal_from_object_to_world_space():
+    # Given
+    g1 = Group()
+    g1.transform = rotation_y(pi / 2)
+    g2 = Group()
+    g2.transform = scaling(1, 2, 3)
+    g1.add_child(g2)
+    s = Sphere()
+    s.transform = translation(5, 0, 0)
+    g2.add_child(s)
+    # When
+    n = s.normal_to_world(Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))
+    # Then
+    assert n == Vector(0.28571, 0.42857, -0.85714)

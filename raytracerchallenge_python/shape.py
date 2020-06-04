@@ -33,3 +33,13 @@ class Shape(metaclass=ABCMeta):
         if self.parent:
             point = self.parent.world_to_object(point)
         return self.transform.inverse() * point
+
+    def normal_to_world(self, normal):
+        normal = self.transform.inverse().transpose() * normal
+        normal.w = 0
+        normal = normal.normalize()
+
+        if self.parent:
+            normal = self.parent.normal_to_world(normal)
+
+        return normal
