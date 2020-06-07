@@ -5,6 +5,12 @@ from raytracerchallenge_python.intersection import Intersections
 from functools import reduce
 
 
+class DontCallMeError(Exception):
+    def __init__(self):
+        self.expression = 'Don\'t Call Me!'
+        self.text = 'Don\'t Call Me!'
+
+
 class Group(Shape):
     def __init__(self):
         super().__init__()
@@ -30,4 +36,4 @@ class Group(Shape):
         return Intersections(*xs)
 
     def local_normal_at(self, point):
-        """ not implemented """
+        raise DontCallMeError

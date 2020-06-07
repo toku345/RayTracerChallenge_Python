@@ -1,10 +1,12 @@
-from raytracerchallenge_python.group import Group
+from raytracerchallenge_python.group import Group, DontCallMeError
 from raytracerchallenge_python.matrix import identity_matrix
 from raytracerchallenge_python.shape import Shape
 from raytracerchallenge_python.sphere import Sphere
 from raytracerchallenge_python.ray import Ray
 from raytracerchallenge_python.tuple import Point, Vector
 from raytracerchallenge_python.transformations import translation, scaling
+
+import pytest
 
 
 def test_creating_a_new_group():
@@ -79,3 +81,9 @@ def test_intersecting_a_transformed_group():
     xs = g.intersect(r)
     # Then
     assert len(xs) == 2
+
+
+def test_raise_error_when_called_local_normal_at():
+    g = Group()
+    with pytest.raises(DontCallMeError):
+        g.local_normal_at(Point(0, 0, 0))
