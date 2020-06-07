@@ -157,3 +157,19 @@ def test_converting_a_normal_from_object_to_world_space():
     n = s.normal_to_world(Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))
     # Then
     assert n == Vector(0.28571, 0.42857, -0.85714)
+
+
+def test_finding_the_normal_on_a_child_object():
+    # Given
+    g1 = Group()
+    g1.transform = rotation_y(pi / 2)
+    g2 = Group()
+    g2.transform = scaling(1, 2, 3)
+    g1.add_child(g2)
+    s = Sphere()
+    s.transform = translation(5, 0, 0)
+    g2.add_child(s)
+    # When
+    n = s.normal_at(Point(1.7321, 1.1547, -5.5774))
+    # Then
+    assert n == Vector(0.2857, 0.42854, -0.85716)

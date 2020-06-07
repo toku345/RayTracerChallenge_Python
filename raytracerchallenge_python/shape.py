@@ -18,12 +18,10 @@ class Shape(metaclass=ABCMeta):
     def local_intersect(self, ray):
         """ abstruct method !!! """
 
-    def normal_at(self, point):
-        local_point = self.transform.inverse() * point
+    def normal_at(self, world_point):
+        local_point = self.world_to_object(world_point)
         local_normal = self.local_normal_at(local_point)
-        world_normal = self.transform.inverse().transpose() * local_normal
-        world_normal.w = 0
-        return world_normal.normalize()
+        return self.normal_to_world(local_normal)
 
     @abstractmethod
     def local_normal_at(self, point):
